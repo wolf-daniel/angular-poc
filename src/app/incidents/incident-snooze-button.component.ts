@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 
 import {AppState} from '../states/app-state';
-import {GetSnoozeAction} from '../actions/snooze.actions';
+import {GetSnoozeAction, SnoozeAction, UnsnoozeAction} from '../actions/snooze.actions';
 
 @Component({
   selector: 'incident-snooze-button',
@@ -24,10 +24,14 @@ export class IncidentSnoozeButton implements OnInit {
   }
 
   snooze() {
-    console.log('snooze');
+    if (!this.isSnoozed) {
+      this.store.dispatch(new SnoozeAction(this.incidentId));
+    }
   }
 
   unsnooze() {
-    console.log('unsnooze');
+    if (this.isSnoozed) {
+      this.store.dispatch(new UnsnoozeAction(this.incidentId));
+    }
   }
 }

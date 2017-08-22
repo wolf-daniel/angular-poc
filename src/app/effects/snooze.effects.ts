@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Http} from '@angular/http';
+import {Headers, Http} from '@angular/http';
 import {Actions, Effect} from '@ngrx/effects';
 import 'rxjs/add/operator/concatMap';
 import 'rxjs/add/operator/switchMap';
@@ -8,23 +8,48 @@ import 'rxjs/add/operator/toPromise';
 
 import * as SnooozeActions from '../actions/snooze.actions';
 import {Observable} from 'rxjs/Observable';
-import {GetSnoozeSuccessAction} from '../actions/snooze.actions';
+import {GetSnoozeSuccessAction, SnoozeAction, SnoozeSuccessAction, UnsnoozeAction, UnsnoozeSuccessAction} from '../actions/snooze.actions';
 
 @Injectable()
 export class SnoozeEffects {
   private baseUrl = 'api/snooze';
+  private headers = new Headers({'Content-Type': 'application/json'});
 
   constructor(private actions: Actions, private http: Http) {}
 
-  @Effect() getIncidentList = this.actions
+  @Effect() getSnoozeEffect = this.actions
     .ofType(SnooozeActions.GET_SNOOZE_REQUEST)
     .switchMap(() => this.fetchSnooze()
       .map((snoozedIncidentIds) => new GetSnoozeSuccessAction(snoozedIncidentIds))
+    );
+
+  @Effect() snoozeEffect = this.actions
+    .ofType(SnooozeActions.SNOOZE_REQUEST)
+    .switchMap((action: SnoozeAction) => this.snooze(action.incidentId)
+      .map(() => new SnoozeSuccessAction(action.incidentId))
+    );
+
+  @Effect() unsnoozeEffect = this.actions
+    .ofType(SnooozeActions.UNSNOOZE_REQUEST)
+    .switchMap((action: UnsnoozeAction) => this.snooze(action.incidentId)
+      .map(() => new UnsnoozeSuccessAction(action.incidentId))
     );
 
   fetchSnooze(): Observable<string[]> {
     return this.http
       .get(`${this.baseUrl}`)
       .map(response => response.json().data as string[]);
+  }
+
+  snooze(incidentId: string): Observable<{}> {
+    return this.http
+      .post(`${this.baseUrl}/${incidentId}`, {headers: this.headers})
+      .map(response => ({}));
+  }
+
+  unsnooze(incidentId: string): Observable<{}> {
+    return this.http
+      .delete(`${this.baseUrl}/${incidentId}`, {headers: this.headers})
+      .map(response => ({}));
   }
 }
