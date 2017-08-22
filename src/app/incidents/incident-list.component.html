@@ -1,0 +1,6 @@
+<div class="incident-list">
+  <h2>Incidents</h2>
+  <div *ngFor="let incident of incidents$ | async">
+    <incident-row [incident]="incident"></incident-row>
+  </div>
+</div>

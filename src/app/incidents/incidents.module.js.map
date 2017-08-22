@@ -1,0 +1,1 @@
+{"version":3,"file":"incidents.module.js","sourceRoot":"","sources":["incidents.module.ts"],"names":[],"mappings":";;;;;;;;AAAA,sCAAuC;AACvC,8DAA0D;AAE1D,qEAAuD;AACvD,mEAAqD;AAWrD,IAAa,eAAe;IAA5B;IAA8B,CAAC;IAAD,sBAAC;AAAD,CAAC,AAA/B,IAA+B;AAAlB,eAAe;IAT3B,eAAQ,CAAC;QACR,OAAO,EAAE;YACP,gCAAa;SACd;QACD,YAAY,EAAE;YACZ,sCAAY;YACZ,oCAAW;SACZ;KACF,CAAC;GACW,eAAe,CAAG;AAAlB,0CAAe"}
