@@ -8,10 +8,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var heroes_component_1 = require("./heroes.component");
-var dashboard_component_1 = require("./dashboard.component");
-var hero_details_component_1 = require("./hero-details.component");
-var incident_list_component_1 = require("../incidents/incident-list.component");
+var heroes_component_1 = require("./heroes/heroes.component");
+var dashboard_component_1 = require("./heroes/dashboard.component");
+var hero_details_component_1 = require("./heroes/hero-details.component");
+var incident_list_component_1 = require("./incidents/incident-list.component");
 var routes = [
     {
         path: 'heroes',

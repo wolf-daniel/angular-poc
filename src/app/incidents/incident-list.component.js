@@ -11,16 +11,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var store_1 = require("@ngrx/store");
-var IncidentsActions = require("../actions/incidents.actions");
+var incidents_actions_1 = require("../actions/incidents.actions");
 var IncidentList = (function () {
     function IncidentList(store) {
+        var _this = this;
         this.store = store;
-        this.incidents$ = store.select('incidents');
+        store.select('incidentList').subscribe(function (state) {
+            _this.incidents = state.incidents;
+        });
     }
     IncidentList.prototype.ngOnInit = function () {
-        this.store.dispatch({
-            type: IncidentsActions.INCIDENT_LIST_GET
-        });
+        this.store.dispatch(new incidents_actions_1.GetIncidentListAction());
     };
     return IncidentList;
 }());

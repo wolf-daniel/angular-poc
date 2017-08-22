@@ -2,9 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Incident} from './incident';
 import {Store} from '@ngrx/store';
 
-import * as IncidentsActions from '../actions/incidents.actions';
-import {IncidentListState} from '../states/incidents.state';
-import {Observable} from 'rxjs/Observable';
+import {GetIncidentListAction} from '../actions/incidents.actions';
+import {AppState} from '../states/app-state';
 
 @Component({
   selector: 'incident-list',
@@ -12,15 +11,15 @@ import {Observable} from 'rxjs/Observable';
   styleUrls: ['./incident-list.component.css']
 })
 export class IncidentList implements OnInit {
-  incidents$: Observable<Incident[]>;
+  incidents: Incident[];
 
-  constructor(private store: Store<IncidentListState>) {
-    this.incidents$ = store.select('incidents');
+  constructor(private store: Store<AppState>) {
+    store.select('incidentList').subscribe(state => {
+      this.incidents = state.incidents;
+    });
   }
 
   ngOnInit(): void {
-    this.store.dispatch({
-      type: IncidentsActions.INCIDENT_LIST_GET
-    });
+    this.store.dispatch(new GetIncidentListAction());
   }
 }

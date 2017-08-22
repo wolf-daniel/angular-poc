@@ -17,7 +17,7 @@ var IncidentRow = (function () {
 }());
 __decorate([
     core_1.Input(),
-    __metadata("design:type", Array)
+    __metadata("design:type", Object)
 ], IncidentRow.prototype, "incident", void 0);
 IncidentRow = __decorate([
     core_1.Component({

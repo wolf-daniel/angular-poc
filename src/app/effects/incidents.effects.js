@@ -17,6 +17,7 @@ require("rxjs/add/operator/switchMap");
 require("rxjs/add/operator/map");
 require("rxjs/add/operator/toPromise");
 var IncidentsActions = require("../actions/incidents.actions");
+var incidents_actions_1 = require("../actions/incidents.actions");
 var IncidentEffects = (function () {
     function IncidentEffects(actions, http) {
         var _this = this;
@@ -24,25 +25,14 @@ var IncidentEffects = (function () {
         this.http = http;
         this.baseUrl = 'api/incidents';
         this.getIncidentList = this.actions
-            .ofType(IncidentsActions.INCIDENT_LIST_GET)
-            .map(function (action) {
-            console.log('effects - action:', action);
-            return _this.fetchIncidents();
-        })
-            .map(function (res) {
-            console.log('effects - res:', res);
-            return res;
-        });
+            .ofType(IncidentsActions.GET_INCIDENT_LIST_REQUEST)
+            .switchMap(function () { return _this.fetchIncidents()
+            .map(function (incidents) { return new incidents_actions_1.GetIncidentListSuccessAction(incidents); }); });
     }
     IncidentEffects.prototype.fetchIncidents = function () {
         return this.http
             .get("" + this.baseUrl)
-            .toPromise()
-            .then(function (response) {
-            var data = response.json().data;
-            console.log('fetchIncidents - data:', data);
-            return data;
-        });
+            .map(function (response) { return response.json().data; });
     };
     return IncidentEffects;
 }());

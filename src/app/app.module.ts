@@ -6,17 +6,17 @@ import {InMemoryWebApiModule} from 'angular-in-memory-web-api';
 import { StoreModule } from '@ngrx/store';
 
 import {AppRoutingModule} from './app-routing.module';
-import {AppComponent} from './app.component';
-import { HeroesComponent }  from './heroes.component';
-import { HeroDetailComponent }  from './hero-details.component';
-import { DashboardComponent }  from './dashboard.component';
-import {HeroService} from './hero.service';
-import {InMemoryDataService} from './in-memory-data.service';
-import {HeroSearchComponent} from './hero-search.component';
-import {IncidentsModule} from '../incidents/incidents.module';
+import {AppComponent} from './heroes/app.component';
+import { HeroesComponent }  from './heroes/heroes.component';
+import { HeroDetailComponent }  from './heroes/hero-details.component';
+import { DashboardComponent }  from './heroes/dashboard.component';
+import {HeroService} from './heroes/hero.service';
+import {InMemoryDataService} from './heroes/in-memory-data.service';
+import {HeroSearchComponent} from './heroes/hero-search.component';
+import {IncidentsModule} from './incidents/incidents.module';
 import {EffectsModule} from '@ngrx/effects';
-import {IncidentEffects} from '../effects/incidents.effects';
-import {AppReducer} from '../reducers/app.reducer';
+import {IncidentEffects} from './effects/incidents.effects';
+import {incidentListReducer} from './reducers/incident-list.reducer';
 
 @NgModule({
   imports: [
@@ -24,7 +24,9 @@ import {AppReducer} from '../reducers/app.reducer';
     FormsModule,
     HttpModule,
     InMemoryWebApiModule.forRoot(InMemoryDataService),
-    StoreModule.forRoot(AppReducer),
+    StoreModule.forRoot({
+      incidentList: incidentListReducer
+    }),
     EffectsModule.forRoot([IncidentEffects]),
     AppRoutingModule,
     IncidentsModule

@@ -1,4 +1,5 @@
 export interface Incident {
+  id: string;
   status: string;
   sourceSystem: string;
   entities: Entity[];

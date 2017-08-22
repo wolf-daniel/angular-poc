@@ -1,10 +1,10 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
-import {HeroesComponent} from './heroes.component';
-import {DashboardComponent} from './dashboard.component';
-import {HeroDetailComponent} from './hero-details.component';
-import {IncidentList} from '../incidents/incident-list.component';
+import {HeroesComponent} from './heroes/heroes.component';
+import {DashboardComponent} from './heroes/dashboard.component';
+import {HeroDetailComponent} from './heroes/hero-details.component';
+import {IncidentList} from './incidents/incident-list.component';
 
 const routes: Routes = [
   {

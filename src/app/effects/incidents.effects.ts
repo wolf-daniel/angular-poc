@@ -8,6 +8,8 @@ import 'rxjs/add/operator/toPromise';
 
 import * as IncidentsActions from '../actions/incidents.actions';
 import {Incident} from '../incidents/incident';
+import {Observable} from 'rxjs/Observable';
+import {GetIncidentListSuccessAction} from '../actions/incidents.actions';
 
 @Injectable()
 export class IncidentEffects {
@@ -16,24 +18,14 @@ export class IncidentEffects {
   constructor(private actions: Actions, private http: Http) {}
 
   @Effect() getIncidentList = this.actions
-    .ofType(IncidentsActions.INCIDENT_LIST_GET)
-    .map((action) => {
-      console.log('effects - action:', action);
-      return this.fetchIncidents();
-    })
-    .map((res: any) => {
-      console.log('effects - res:', res);
-      return res;
-    });
+    .ofType(IncidentsActions.GET_INCIDENT_LIST_REQUEST)
+    .switchMap(() => this.fetchIncidents()
+      .map((incidents) => new GetIncidentListSuccessAction(incidents))
+    );
 
-  fetchIncidents(): Promise<Incident[]> {
+  fetchIncidents(): Observable<Incident[]> {
     return this.http
       .get(`${this.baseUrl}`)
-      .toPromise()
-      .then(response => {
-        const data = response.json().data as Incident[];
-        console.log('fetchIncidents - data:', data);
-        return data;
-      });
+      .map(response => response.json().data as Incident[]);
   }
 }

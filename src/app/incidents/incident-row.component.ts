@@ -7,5 +7,5 @@ import {Incident} from './incident';
   styleUrls: ['./incident-row.component.css']
 })
 export class IncidentRow {
-  @Input() incident: Incident[];
+  @Input() incident: Incident;
 }

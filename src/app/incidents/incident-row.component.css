@@ -1,0 +1,35 @@
+.incident-row {
+  height: 15px;
+  border-bottom: 1px solid darkgrey;
+  padding: 15px;
+}
+
+.field {
+  display: inline-block;
+}
+
+.source-system label {
+  margin-right: 8px;
+  color: lightgrey;
+}
+
+.source-system span {
+  color: black;
+}
+
+.status {
+  margin-right: 25px;
+}
+
+.status.critical {
+  color: red;
+}
+
+.status.warning {
+  color: orange;
+}
+
+.status.resolved {
+  color: green;
+}
+

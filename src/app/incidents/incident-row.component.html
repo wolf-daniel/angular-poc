@@ -1,4 +1,9 @@
 <div class="incident-row">
-  <span class="status">{{incident.status}}</span>
-  <span class="source-system">{{incident.sourceSystem}}</span>
+  <div class="status field" [ngClass]="incident.status.toLowerCase()">
+    <span>{{incident.status}}</span>
+  </div>
+  <div class="source-system field">
+    <label>Source system:</label>
+    <span>{{incident.sourceSystem}}</span>
+  </div>
 </div>

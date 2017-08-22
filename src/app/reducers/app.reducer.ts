@@ -6,6 +6,6 @@ const reducers = {
   incidentList: incidentListReducer
 };
 
-export function AppReducer(state: any, action: any) {
+export function AppReducer() {
   return combineReducers(reducers);
 }

@@ -13,17 +13,17 @@ var http_1 = require("@angular/http");
 var angular_in_memory_web_api_1 = require("angular-in-memory-web-api");
 var store_1 = require("@ngrx/store");
 var app_routing_module_1 = require("./app-routing.module");
-var app_component_1 = require("./app.component");
-var heroes_component_1 = require("./heroes.component");
-var hero_details_component_1 = require("./hero-details.component");
-var dashboard_component_1 = require("./dashboard.component");
-var hero_service_1 = require("./hero.service");
-var in_memory_data_service_1 = require("./in-memory-data.service");
-var hero_search_component_1 = require("./hero-search.component");
-var incidents_module_1 = require("../incidents/incidents.module");
+var app_component_1 = require("./heroes/app.component");
+var heroes_component_1 = require("./heroes/heroes.component");
+var hero_details_component_1 = require("./heroes/hero-details.component");
+var dashboard_component_1 = require("./heroes/dashboard.component");
+var hero_service_1 = require("./heroes/hero.service");
+var in_memory_data_service_1 = require("./heroes/in-memory-data.service");
+var hero_search_component_1 = require("./heroes/hero-search.component");
+var incidents_module_1 = require("./incidents/incidents.module");
 var effects_1 = require("@ngrx/effects");
-var incidents_effects_1 = require("../effects/incidents.effects");
-var app_reducer_1 = require("../reducers/app.reducer");
+var incidents_effects_1 = require("./effects/incidents.effects");
+var incident_list_reducer_1 = require("./reducers/incident-list.reducer");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -36,7 +36,9 @@ AppModule = __decorate([
             forms_1.FormsModule,
             http_1.HttpModule,
             angular_in_memory_web_api_1.InMemoryWebApiModule.forRoot(in_memory_data_service_1.InMemoryDataService),
-            store_1.StoreModule.forRoot(app_reducer_1.AppReducer),
+            store_1.StoreModule.forRoot({
+                incidentList: incident_list_reducer_1.incidentListReducer
+            }),
             effects_1.EffectsModule.forRoot([incidents_effects_1.IncidentEffects]),
             app_routing_module_1.AppRoutingModule,
             incidents_module_1.IncidentsModule

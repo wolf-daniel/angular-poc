@@ -1,12 +1,9 @@
 import * as IncidentsActions from '../actions/incidents.actions';
 import {IncidentListInitialState, IncidentListState} from '../states/incidents.state';
 
-export type Action = IncidentsActions.All;
-
-export function incidentListReducer(state: IncidentListState = IncidentListInitialState, action: Action) {
-  console.log('state:', state, 'action:', action);
+export function incidentListReducer(state: IncidentListState = IncidentListInitialState, action: IncidentsActions.All) {
   switch (action.type) {
-    case IncidentsActions.INCIDENT_LIST_GET:
+    case IncidentsActions.GET_INCIDENT_LIST_SUCCESS:
       return {
         incidents: action.incidents
       };
