@@ -14,8 +14,8 @@ export class IncidentSnoozeButton implements OnInit {
   private isSnoozed: boolean;
 
   constructor(private store: Store<AppState>) {
-    store.select('snooze').subscribe(snooze => {
-      this.isSnoozed = snooze.snoozedIncidentIds.includes(this.incidentId);
+    store.select('snooze').subscribe(snoozeState => {
+      this.isSnoozed = snoozeState.snoozedIncidentIds.includes(this.incidentId);
     });
   }
 

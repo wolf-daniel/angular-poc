@@ -10,6 +10,7 @@ var InMemoryDataService = (function () {
                     id: '1',
                     status: 'CRITICAL',
                     sourceSystem: 'nagios',
+                    folderId: 'active',
                     entities: [
                         {
                             id: '101',
@@ -22,6 +23,7 @@ var InMemoryDataService = (function () {
                     id: '2',
                     status: 'WARNING',
                     sourceSystem: 'new relic',
+                    folderId: 'snoozed',
                     entities: [
                         {
                             id: '201',
@@ -37,7 +39,9 @@ var InMemoryDataService = (function () {
                 }
             ],
             snooze: [
-                '2'
+                {
+                    id: '2'
+                }
             ],
             heroes: [
                 { id: 0, name: 'Zero' },

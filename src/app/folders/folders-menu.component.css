@@ -1,0 +1,20 @@
+.folders-menu {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.folders-menu .folder {
+  font-weight: 300;
+  text-transform: uppercase;
+  color: black;
+  margin-right: 25px;
+}
+
+.folders-menu .folder:hover {
+  cursor: pointer;
+  color: #444444;
+}
+
+.folders-menu .folder.active {
+  text-decoration: underline;
+}

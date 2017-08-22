@@ -8,19 +8,23 @@ import {IncidentRow} from './incident-row.component';
 import {IncidentSnoozeButton} from './incident-snooze-button.component';
 import {incidentListReducer} from '../reducers/incident-list.reducer';
 import {snoozeReducer} from '../reducers/snooze.reducer';
+import {foldersReducer} from '../reducers/folders.reducer';
 import {IncidentEffects} from '../effects/incidents.effects';
 import {SnoozeEffects} from '../effects/snooze.effects';
+import {FoldersMenu} from '../folders/folders-menu.component';
 
 @NgModule({
   imports: [
     BrowserModule,
     StoreModule.forRoot({
       incidentList: incidentListReducer,
-      snooze: snoozeReducer
+      snooze: snoozeReducer,
+      folders: foldersReducer
     }),
     EffectsModule.forRoot([IncidentEffects, SnoozeEffects]),
   ],
   declarations: [
+    FoldersMenu,
     IncidentList,
     IncidentRow,
     IncidentSnoozeButton

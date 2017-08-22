@@ -31,19 +31,19 @@ export class SnoozeEffects {
 
   @Effect() unsnoozeEffect = this.actions
     .ofType(SnooozeActions.UNSNOOZE_REQUEST)
-    .switchMap((action: UnsnoozeAction) => this.snooze(action.incidentId)
+    .switchMap((action: UnsnoozeAction) => this.unsnooze(action.incidentId)
       .map(() => new UnsnoozeSuccessAction(action.incidentId))
     );
 
   fetchSnooze(): Observable<string[]> {
     return this.http
       .get(`${this.baseUrl}`)
-      .map(response => response.json().data as string[]);
+      .map(response => response.json().data.map((item: any) => item.id) as string[]);
   }
 
   snooze(incidentId: string): Observable<{}> {
     return this.http
-      .post(`${this.baseUrl}/${incidentId}`, {headers: this.headers})
+      .post(`${this.baseUrl}`, {id: incidentId}, {headers: this.headers})
       .map(response => ({}));
   }
 

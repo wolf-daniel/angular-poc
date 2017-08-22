@@ -15,8 +15,10 @@ var incident_row_component_1 = require("./incident-row.component");
 var incident_snooze_button_component_1 = require("./incident-snooze-button.component");
 var incident_list_reducer_1 = require("../reducers/incident-list.reducer");
 var snooze_reducer_1 = require("../reducers/snooze.reducer");
+var folders_reducer_1 = require("../reducers/folders.reducer");
 var incidents_effects_1 = require("../effects/incidents.effects");
 var snooze_effects_1 = require("../effects/snooze.effects");
+var folders_menu_component_1 = require("../folders/folders-menu.component");
 var IncidentsModule = (function () {
     function IncidentsModule() {
     }
@@ -28,11 +30,13 @@ IncidentsModule = __decorate([
             platform_browser_1.BrowserModule,
             store_1.StoreModule.forRoot({
                 incidentList: incident_list_reducer_1.incidentListReducer,
-                snooze: snooze_reducer_1.snoozeReducer
+                snooze: snooze_reducer_1.snoozeReducer,
+                folders: folders_reducer_1.foldersReducer
             }),
             effects_1.EffectsModule.forRoot([incidents_effects_1.IncidentEffects, snooze_effects_1.SnoozeEffects]),
         ],
         declarations: [
+            folders_menu_component_1.FoldersMenu,
             incident_list_component_1.IncidentList,
             incident_row_component_1.IncidentRow,
             incident_snooze_button_component_1.IncidentSnoozeButton

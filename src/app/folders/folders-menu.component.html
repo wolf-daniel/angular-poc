@@ -1,0 +1,8 @@
+<div class="folders-menu">
+  <span class="folder"
+        *ngFor="let folder of folders"
+        [ngClass]="{active: isActive(folder.id)}"
+        (click)="moveToFolder(folder.id)">
+    {{folder.name}}
+  </span>
+</div>

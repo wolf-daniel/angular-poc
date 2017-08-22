@@ -1,7 +1,5 @@
 import {InMemoryDbService} from 'angular-in-memory-web-api';
 
-import {Hero} from './hero';
-
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
     return {
@@ -10,6 +8,7 @@ export class InMemoryDataService implements InMemoryDbService {
           id: '1',
           status: 'CRITICAL',
           sourceSystem: 'nagios',
+          folderId: 'active',
           entities: [
             {
               id: '101',
@@ -22,6 +21,7 @@ export class InMemoryDataService implements InMemoryDbService {
           id: '2',
           status: 'WARNING',
           sourceSystem: 'new relic',
+          folderId: 'snoozed',
           entities: [
             {
               id: '201',
@@ -37,7 +37,9 @@ export class InMemoryDataService implements InMemoryDbService {
         }
       ],
       snooze: [
-        '2'
+        {
+          id: '2'
+        }
       ],
       heroes: [
         { id: 0,  name: 'Zero' },

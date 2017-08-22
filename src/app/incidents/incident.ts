@@ -1,5 +1,6 @@
 export interface Incident {
   id: string;
+  folderId: string;
   status: string;
   sourceSystem: string;
   entities: Entity[];

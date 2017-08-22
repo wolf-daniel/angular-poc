@@ -11,13 +11,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var store_1 = require("@ngrx/store");
+var Observable_1 = require("rxjs/Observable");
+require("rxjs/add/operator/combineLatest");
+require("rxjs/rx");
 var incidents_actions_1 = require("../actions/incidents.actions");
 var IncidentList = (function () {
     function IncidentList(store) {
         var _this = this;
         this.store = store;
-        store.select('incidentList').subscribe(function (state) {
-            _this.incidents = state.incidents;
+        Observable_1.Observable.combineLatest(store.select('incidentList'), store.select('folders'), function (incidentListState, foldersState) {
+            return incidentListState.incidents.filter(function (incident) { return incident.folderId === foldersState.currentFolderId; });
+        }).subscribe(function (incidents) {
+            _this.incidents = incidents;
         });
     }
     IncidentList.prototype.ngOnInit = function () {
