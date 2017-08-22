@@ -36,6 +36,9 @@ var InMemoryDataService = (function () {
                     ]
                 }
             ],
+            snooze: [
+                '2'
+            ],
             heroes: [
                 { id: 0, name: 'Zero' },
                 { id: 11, name: 'Mr. Nice' },

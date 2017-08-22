@@ -6,4 +6,7 @@
     <label>Source system:</label>
     <span>{{incident.sourceSystem}}</span>
   </div>
+  <div class="snooze-action field">
+    <incident-snooze-button [incidentId]="incident.id"></incident-snooze-button>
+  </div>
 </div>

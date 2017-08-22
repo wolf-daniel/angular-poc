@@ -1,0 +1,4 @@
+<div class="incident-snooze-button">
+  <button *ngIf="!isSnoozed" (click)="snooze()" class="unsnoozed">Snooze</button>
+  <button *ngIf="isSnoozed" (click)="unsnooze()" class="snoozed">Unsnooze</button>
+</div>

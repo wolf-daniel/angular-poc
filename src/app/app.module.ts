@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }   from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {InMemoryWebApiModule} from 'angular-in-memory-web-api';
-import { StoreModule } from '@ngrx/store';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './heroes/app.component';
@@ -14,9 +13,6 @@ import {HeroService} from './heroes/hero.service';
 import {InMemoryDataService} from './heroes/in-memory-data.service';
 import {HeroSearchComponent} from './heroes/hero-search.component';
 import {IncidentsModule} from './incidents/incidents.module';
-import {EffectsModule} from '@ngrx/effects';
-import {IncidentEffects} from './effects/incidents.effects';
-import {incidentListReducer} from './reducers/incident-list.reducer';
 
 @NgModule({
   imports: [
@@ -24,10 +20,6 @@ import {incidentListReducer} from './reducers/incident-list.reducer';
     FormsModule,
     HttpModule,
     InMemoryWebApiModule.forRoot(InMemoryDataService),
-    StoreModule.forRoot({
-      incidentList: incidentListReducer
-    }),
-    EffectsModule.forRoot([IncidentEffects]),
     AppRoutingModule,
     IncidentsModule
   ],
