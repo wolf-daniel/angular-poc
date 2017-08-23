@@ -7,62 +7,55 @@ function incidentListReducer(state, action) {
     if (state === void 0) { state = incidents_state_1.IncidentListInitialState; }
     switch (action.type) {
         case IncidentsActions.GET_INCIDENT_LIST_SUCCESS:
-            return {
+            return Object.assign({}, state, {
                 incidents: action.incidents,
-                selectedIncidentIds: state.selectedIncidentIds
-            };
+            });
         case SnoozeActions.SNOOZE_REQUEST:
-            return {
+            return Object.assign({}, state, {
                 incidents: state.incidents.map(function (incident) {
                     if (incident.id === action.incidentId) {
                         incident.folderId = null;
                     }
                     return incident;
-                }),
-                selectedIncidentIds: state.selectedIncidentIds
-            };
+                })
+            });
         case SnoozeActions.SNOOZE_SUCCESS:
-            return {
+            return Object.assign({}, state, {
                 incidents: state.incidents.map(function (incident) {
                     if (incident.id === action.incidentId) {
                         incident.folderId = 'snoozed';
                     }
                     return incident;
-                }),
-                selectedIncidentIds: state.selectedIncidentIds
-            };
+                })
+            });
         case SnoozeActions.UNSNOOZE_REQUEST:
-            return {
+            return Object.assign({}, state, {
                 incidents: state.incidents.map(function (incident) {
                     if (incident.id === action.incidentId) {
                         incident.folderId = 'active';
                     }
                     return incident;
-                }),
-                selectedIncidentIds: state.selectedIncidentIds
-            };
+                })
+            });
         case SnoozeActions.UNDO_SNOOZE:
-            return {
+            return Object.assign({}, state, {
                 incidents: state.incidents.map(function (incident) {
                     if (incident.id === action.incidentId) {
                         incident.folderId = 'active';
                     }
                     return incident;
-                }),
-                selectedIncidentIds: state.selectedIncidentIds
-            };
+                })
+            });
         case IncidentsActions.SELECT_INCIDENT:
-            return {
-                incidents: state.incidents,
+            return Object.assign({}, state, {
                 selectedIncidentIds: state.selectedIncidentIds.concat([action.incidentId])
-            };
+            });
         case IncidentsActions.DESELECT_INCIDENT:
-            return {
-                incidents: state.incidents,
+            return Object.assign({}, state, {
                 selectedIncidentIds: state.selectedIncidentIds.filter(function (id) { return id !== action.incidentId; })
-            };
+            });
         default:
-            return state;
+            return Object.assign({}, state);
     }
 }
 exports.incidentListReducer = incidentListReducer;
