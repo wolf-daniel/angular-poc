@@ -1,5 +1,5 @@
 
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
 
@@ -14,13 +14,15 @@ import {ConfirmSnoozeAction, UndoSnoozeAction} from '../actions/snooze.actions';
   templateUrl: './snooze-message.component.html',
   styleUrls: ['./snooze-message.component.css']
 })
-export class SnoozeMessage {
+export class SnoozeMessage implements OnInit {
   ongoingSnoozeIncident: Incident;
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<AppState>) {}
+
+  ngOnInit(): void {
     Observable.combineLatest(
-      store.select('snooze'),
-      store.select('incidentList'),
+      this.store.select('snooze'),
+      this.store.select('incidentList'),
       (snoozeState: SnoozeState, incidentListState: IncidentListState) => {
         return snoozeState.ongoingSnoozeIncidentIds.map(id => incidentListState.incidents.find(incident => incident.id === id));
       }

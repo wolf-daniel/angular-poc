@@ -13,13 +13,12 @@ export class IncidentSnoozeButton implements OnInit {
   @Input() incidentId: string;
   private isSnoozed: boolean;
 
-  constructor(private store: Store<AppState>) {
-    store.select('snooze').subscribe(snoozeState => {
-      this.isSnoozed = snoozeState.snoozedIncidentIds.includes(this.incidentId);
-    });
-  }
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
+    this.store.select('snooze').subscribe(snoozeState => {
+      this.isSnoozed = snoozeState.snoozedIncidentIds.includes(this.incidentId);
+    });
     this.store.dispatch(new GetSnoozeAction());
   }
 

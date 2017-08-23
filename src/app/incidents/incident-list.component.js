@@ -17,15 +17,15 @@ require("rxjs/rx");
 var incidents_actions_1 = require("../actions/incidents.actions");
 var IncidentList = (function () {
     function IncidentList(store) {
-        var _this = this;
         this.store = store;
-        Observable_1.Observable.combineLatest(store.select('incidentList'), store.select('folders'), function (incidentListState, foldersState) {
+    }
+    IncidentList.prototype.ngOnInit = function () {
+        var _this = this;
+        Observable_1.Observable.combineLatest(this.store.select('incidentList'), this.store.select('folders'), function (incidentListState, foldersState) {
             return incidentListState.incidents.filter(function (incident) { return incident.folderId === foldersState.currentFolderId; });
         }).subscribe(function (incidents) {
             _this.incidents = incidents;
         });
-    }
-    IncidentList.prototype.ngOnInit = function () {
         this.store.dispatch(new incidents_actions_1.GetIncidentListAction());
     };
     return IncidentList;

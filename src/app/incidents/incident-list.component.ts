@@ -18,19 +18,19 @@ import {FoldersState} from '../states/folders.state';
 export class IncidentList implements OnInit {
   incidents: Incident[];
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<AppState>) {}
+
+  ngOnInit(): void {
     Observable.combineLatest(
-      store.select('incidentList'),
-      store.select('folders'),
+      this.store.select('incidentList'),
+      this.store.select('folders'),
       (incidentListState: IncidentListState, foldersState: FoldersState) => {
         return incidentListState.incidents.filter(incident => incident.folderId === foldersState.currentFolderId);
       }
     ).subscribe(incidents => {
       this.incidents = incidents;
     });
-  }
 
-  ngOnInit(): void {
     this.store.dispatch(new GetIncidentListAction());
   }
 }
