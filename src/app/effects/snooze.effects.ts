@@ -1,10 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Headers, Http} from '@angular/http';
 import {Actions, Effect} from '@ngrx/effects';
-import 'rxjs/add/operator/concatMap';
-import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/toPromise';
 
 import * as SnooozeActions from '../actions/snooze.actions';
 import {Observable} from 'rxjs/Observable';
@@ -19,19 +17,19 @@ export class SnoozeEffects {
 
   @Effect() getSnoozeEffect = this.actions
     .ofType(SnooozeActions.GET_SNOOZE_REQUEST)
-    .switchMap(() => this.fetchSnooze()
+    .mergeMap(() => this.fetchSnooze()
       .map((snoozedIncidentIds) => new GetSnoozeSuccessAction(snoozedIncidentIds))
     );
 
   @Effect() snoozeEffect = this.actions
     .ofType(SnooozeActions.SNOOZE_REQUEST)
-    .switchMap((action: SnoozeAction) => this.snooze(action.incidentId)
+    .mergeMap((action: SnoozeAction) => this.snooze(action.incidentId)
       .map(() => new SnoozeSuccessAction(action.incidentId))
     );
 
   @Effect() unsnoozeEffect = this.actions
     .ofType(SnooozeActions.UNSNOOZE_REQUEST)
-    .switchMap((action: UnsnoozeAction) => this.unsnooze(action.incidentId)
+    .mergeMap((action: UnsnoozeAction) => this.unsnooze(action.incidentId)
       .map(() => new UnsnoozeSuccessAction(action.incidentId))
     );
 

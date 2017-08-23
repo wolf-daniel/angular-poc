@@ -1,10 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Http} from '@angular/http';
 import {Actions, Effect} from '@ngrx/effects';
-import 'rxjs/add/operator/concatMap';
-import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/toPromise';
 
 import * as IncidentsActions from '../actions/incidents.actions';
 import {Incident} from '../incidents/incident';
@@ -19,7 +17,7 @@ export class IncidentEffects {
 
   @Effect() getIncidentList = this.actions
     .ofType(IncidentsActions.GET_INCIDENT_LIST_REQUEST)
-    .switchMap(() => this.fetchIncidents()
+    .mergeMap(() => this.fetchIncidents()
       .map((incidents) => new GetIncidentListSuccessAction(incidents))
     );
 
