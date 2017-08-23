@@ -5,15 +5,33 @@ export function snoozeReducer(state: SnoozeState = SnoozeInitialState, action: S
   switch (action.type) {
     case SnoozeActions.GET_SNOOZE_SUCCESS:
       return {
-        snoozedIncidentIds: action.snoozedIncidentIds
+        snoozedIncidentIds: action.snoozedIncidentIds,
+        ongoingSnoozeIncidentIds: state.ongoingSnoozeIncidentIds
       };
     case SnoozeActions.SNOOZE_REQUEST:
       return {
-        snoozedIncidentIds: [...state.snoozedIncidentIds, action.incidentId]
+        snoozedIncidentIds: [...state.snoozedIncidentIds, action.incidentId],
+        ongoingSnoozeIncidentIds: [...state.ongoingSnoozeIncidentIds, action.incidentId]
+      };
+    case SnoozeActions.SNOOZE_SUCCESS:
+      return {
+        snoozedIncidentIds: state.snoozedIncidentIds,
+        ongoingSnoozeIncidentIds: state.ongoingSnoozeIncidentIds.filter(id => id !== action.incidentId)
       };
     case SnoozeActions.UNSNOOZE_REQUEST:
       return {
-        snoozedIncidentIds: state.snoozedIncidentIds.filter(id => id !== action.incidentId)
+        snoozedIncidentIds: state.snoozedIncidentIds.filter(id => id !== action.incidentId),
+        ongoingSnoozeIncidentIds: state.ongoingSnoozeIncidentIds
+      };
+    case SnoozeActions.CONFIRM_SNOOZE:
+      return {
+        snoozedIncidentIds: state.snoozedIncidentIds,
+        ongoingSnoozeIncidentIds: state.ongoingSnoozeIncidentIds.filter(id => id !== action.incidentId)
+      };
+    case SnoozeActions.UNDO_SNOOZE:
+      return {
+        snoozedIncidentIds: state.snoozedIncidentIds.filter(id => id !== action.incidentId),
+        ongoingSnoozeIncidentIds: state.ongoingSnoozeIncidentIds.filter(id => id !== action.incidentId)
       };
     default:
       return state;

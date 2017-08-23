@@ -1,15 +1,25 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect} from '@ngrx/effects';
 import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/map';
 
 import * as SnooozeActions from '../actions/snooze.actions';
 import {GetSnoozeSuccessAction, SnoozeAction, SnoozeSuccessAction, UnsnoozeAction, UnsnoozeSuccessAction} from '../actions/snooze.actions';
 import {SnoozeBackendService} from '../backend/snooze-backend.service';
+import {Store} from '@ngrx/store';
+import {AppState} from '../states/app-state';
+import {SnoozeState} from '../states/snooze.state';
 
 @Injectable()
 export class SnoozeEffects {
-  constructor(private actions: Actions, private snoozeBackendService: SnoozeBackendService) {}
+  snoozeState: SnoozeState;
+
+  constructor(private actions: Actions, private snoozeBackendService: SnoozeBackendService, private store: Store<AppState>) {
+    store.select('snooze').subscribe(state => {
+      this.snoozeState = state;
+    });
+  }
 
   @Effect() getSnoozeEffect = this.actions
     .ofType(SnooozeActions.GET_SNOOZE_REQUEST)
@@ -19,6 +29,8 @@ export class SnoozeEffects {
 
   @Effect() snoozeEffect = this.actions
     .ofType(SnooozeActions.SNOOZE_REQUEST)
+    .delay(5000)
+    .filter((action: SnoozeAction) => this.snoozeState.ongoingSnoozeIncidentIds.includes(action.incidentId))
     .mergeMap((action: SnoozeAction) => this.snoozeBackendService.snooze(action.incidentId)
       .map(() => new SnoozeSuccessAction(action.incidentId))
     );

@@ -12,12 +12,30 @@ export function incidentListReducer(state: IncidentListState = IncidentListIniti
       return {
         incidents: state.incidents.map(incident => {
           if (incident.id === action.incidentId) {
+            incident.folderId = null;
+          }
+          return incident;
+        })
+      };
+    case SnoozeActions.SNOOZE_SUCCESS:
+      return {
+        incidents: state.incidents.map(incident => {
+          if (incident.id === action.incidentId) {
             incident.folderId = 'snoozed';
           }
           return incident;
         })
       };
     case SnoozeActions.UNSNOOZE_REQUEST:
+      return {
+        incidents: state.incidents.map(incident => {
+          if (incident.id === action.incidentId) {
+            incident.folderId = 'active';
+          }
+          return incident;
+        })
+      };
+    case SnoozeActions.UNDO_SNOOZE:
       return {
         incidents: state.incidents.map(incident => {
           if (incident.id === action.incidentId) {

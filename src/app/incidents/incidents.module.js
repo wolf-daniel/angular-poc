@@ -21,6 +21,7 @@ var snooze_effects_1 = require("../effects/snooze.effects");
 var folders_menu_component_1 = require("../folders/folders-menu.component");
 var incidents_backend_service_1 = require("../backend/incidents-backend.service");
 var snooze_backend_service_1 = require("../backend/snooze-backend.service");
+var snooze_message_component_1 = require("./snooze-message.component");
 var IncidentsModule = (function () {
     function IncidentsModule() {
     }
@@ -41,7 +42,8 @@ IncidentsModule = __decorate([
             folders_menu_component_1.FoldersMenu,
             incident_list_component_1.IncidentList,
             incident_row_component_1.IncidentRow,
-            incident_snooze_button_component_1.IncidentSnoozeButton
+            incident_snooze_button_component_1.IncidentSnoozeButton,
+            snooze_message_component_1.SnoozeMessage
         ],
         providers: [
             incidents_backend_service_1.IncidentsBackendService,

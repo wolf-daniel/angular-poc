@@ -6,6 +6,8 @@ export const SNOOZE_REQUEST = 'SNOOZE_REQUEST';
 export const SNOOZE_SUCCESS = 'SNOOZE_SUCCESS';
 export const UNSNOOZE_REQUEST = 'UNSNOOZE_REQUEST';
 export const UNSNOOZE_SUCCESS = 'UNSNOOZE_SUCCESS';
+export const UNDO_SNOOZE = 'UNDO_SNOOZE';
+export const CONFIRM_SNOOZE = 'CONFIRM_SNOOZE';
 
 export class GetSnoozeAction implements Action {
   readonly type = GET_SNOOZE_REQUEST;
@@ -37,10 +39,22 @@ export class UnsnoozeSuccessAction implements Action {
   constructor(public incidentId: string) {}
 }
 
+export class UndoSnoozeAction implements Action {
+  readonly type = UNDO_SNOOZE;
+  constructor(public incidentId: string) {}
+}
+
+export class ConfirmSnoozeAction implements Action {
+  readonly type = CONFIRM_SNOOZE;
+  constructor(public incidentId: string) {}
+}
+
 export type All =
   GetSnoozeAction |
   GetSnoozeSuccessAction |
   SnoozeAction |
   SnoozeSuccessAction |
   UnsnoozeAction |
-  UnsnoozeSuccessAction;
+  UnsnoozeSuccessAction |
+  UndoSnoozeAction |
+  ConfirmSnoozeAction;
