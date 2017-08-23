@@ -15,6 +15,7 @@ import {FoldersMenu} from '../folders/folders-menu.component';
 import {IncidentsBackendService} from '../backend/incidents-backend.service';
 import {SnoozeBackendService} from '../backend/snooze-backend.service';
 import {SnoozeMessage} from './snooze-message.component';
+import {IncidentChecked} from './incident-checked.component';
 
 @NgModule({
   imports: [
@@ -30,6 +31,7 @@ import {SnoozeMessage} from './snooze-message.component';
     FoldersMenu,
     IncidentList,
     IncidentRow,
+    IncidentChecked,
     IncidentSnoozeButton,
     SnoozeMessage
   ],

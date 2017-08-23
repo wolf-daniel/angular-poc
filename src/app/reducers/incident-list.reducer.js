@@ -8,7 +8,8 @@ function incidentListReducer(state, action) {
     switch (action.type) {
         case IncidentsActions.GET_INCIDENT_LIST_SUCCESS:
             return {
-                incidents: action.incidents
+                incidents: action.incidents,
+                selectedIncidentIds: state.selectedIncidentIds
             };
         case SnoozeActions.SNOOZE_REQUEST:
             return {
@@ -17,7 +18,8 @@ function incidentListReducer(state, action) {
                         incident.folderId = null;
                     }
                     return incident;
-                })
+                }),
+                selectedIncidentIds: state.selectedIncidentIds
             };
         case SnoozeActions.SNOOZE_SUCCESS:
             return {
@@ -26,7 +28,8 @@ function incidentListReducer(state, action) {
                         incident.folderId = 'snoozed';
                     }
                     return incident;
-                })
+                }),
+                selectedIncidentIds: state.selectedIncidentIds
             };
         case SnoozeActions.UNSNOOZE_REQUEST:
             return {
@@ -35,7 +38,8 @@ function incidentListReducer(state, action) {
                         incident.folderId = 'active';
                     }
                     return incident;
-                })
+                }),
+                selectedIncidentIds: state.selectedIncidentIds
             };
         case SnoozeActions.UNDO_SNOOZE:
             return {
@@ -44,7 +48,18 @@ function incidentListReducer(state, action) {
                         incident.folderId = 'active';
                     }
                     return incident;
-                })
+                }),
+                selectedIncidentIds: state.selectedIncidentIds
+            };
+        case IncidentsActions.SELECT_INCIDENT:
+            return {
+                incidents: state.incidents,
+                selectedIncidentIds: state.selectedIncidentIds.concat([action.incidentId])
+            };
+        case IncidentsActions.DESELECT_INCIDENT:
+            return {
+                incidents: state.incidents,
+                selectedIncidentIds: state.selectedIncidentIds.filter(function (id) { return id !== action.incidentId; })
             };
         default:
             return state;

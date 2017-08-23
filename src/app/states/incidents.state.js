@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.IncidentListInitialState = {
-    incidents: []
+    incidents: [],
+    selectedIncidentIds: []
 };
 //# sourceMappingURL=incidents.state.js.map

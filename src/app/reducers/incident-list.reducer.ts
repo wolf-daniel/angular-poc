@@ -6,7 +6,8 @@ export function incidentListReducer(state: IncidentListState = IncidentListIniti
   switch (action.type) {
     case IncidentsActions.GET_INCIDENT_LIST_SUCCESS:
       return {
-        incidents: action.incidents
+        incidents: action.incidents,
+        selectedIncidentIds: state.selectedIncidentIds
       };
     case SnoozeActions.SNOOZE_REQUEST:
       return {
@@ -15,7 +16,8 @@ export function incidentListReducer(state: IncidentListState = IncidentListIniti
             incident.folderId = null;
           }
           return incident;
-        })
+        }),
+        selectedIncidentIds: state.selectedIncidentIds
       };
     case SnoozeActions.SNOOZE_SUCCESS:
       return {
@@ -24,7 +26,8 @@ export function incidentListReducer(state: IncidentListState = IncidentListIniti
             incident.folderId = 'snoozed';
           }
           return incident;
-        })
+        }),
+        selectedIncidentIds: state.selectedIncidentIds
       };
     case SnoozeActions.UNSNOOZE_REQUEST:
       return {
@@ -33,7 +36,8 @@ export function incidentListReducer(state: IncidentListState = IncidentListIniti
             incident.folderId = 'active';
           }
           return incident;
-        })
+        }),
+        selectedIncidentIds: state.selectedIncidentIds
       };
     case SnoozeActions.UNDO_SNOOZE:
       return {
@@ -42,7 +46,18 @@ export function incidentListReducer(state: IncidentListState = IncidentListIniti
             incident.folderId = 'active';
           }
           return incident;
-        })
+        }),
+        selectedIncidentIds: state.selectedIncidentIds
+      };
+    case IncidentsActions.SELECT_INCIDENT:
+      return {
+        incidents: state.incidents,
+        selectedIncidentIds: [...state.selectedIncidentIds, action.incidentId]
+      };
+    case IncidentsActions.DESELECT_INCIDENT:
+      return {
+        incidents: state.incidents,
+        selectedIncidentIds: state.selectedIncidentIds.filter(id => id !== action.incidentId)
       };
     default:
       return state;
