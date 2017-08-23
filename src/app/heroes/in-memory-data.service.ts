@@ -34,6 +34,32 @@ export class InMemoryDataService implements InMemoryDbService {
               check: 'bbb'
             }
           ]
+        },
+        {
+          id: '3',
+          status: 'CRITICAL',
+          sourceSystem: 'sentry',
+          folderId: 'active',
+          entities: [
+            {
+              id: '301',
+              host: 'api-2',
+              check: 'aaa'
+            }
+          ]
+        },
+        {
+          id: '4',
+          status: 'RESOLVED',
+          sourceSystem: 'sentry',
+          folderId: 'active',
+          entities: [
+            {
+              id: '401',
+              host: 'perf-1',
+              check: 'aaa'
+            }
+          ]
         }
       ],
       snooze: [
