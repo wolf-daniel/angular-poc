@@ -1,0 +1,5 @@
+<div class="incident-list-top-bar">
+  <span *ngIf="selectedIncidentIds.length === 0">No rows selected</span>
+  <span *ngIf="selectedIncidentIds.length === 1">1 row selected</span>
+  <span *ngIf="selectedIncidentIds.length > 1">{{selectedIncidentIds.length}} rows selected</span>
+</div>

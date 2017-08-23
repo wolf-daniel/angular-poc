@@ -1,6 +1,7 @@
 <div class="incident-list">
   <h2>Incidents</h2>
   <folders-menu></folders-menu>
+  <incident-list-top-bar></incident-list-top-bar>
   <incident-row *ngFor="let incident of incidents" [incident]="incident"></incident-row>
   <snooze-message></snooze-message>
 </div>

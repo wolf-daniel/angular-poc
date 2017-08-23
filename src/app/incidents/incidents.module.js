@@ -23,6 +23,7 @@ var incidents_backend_service_1 = require("../backend/incidents-backend.service"
 var snooze_backend_service_1 = require("../backend/snooze-backend.service");
 var snooze_message_component_1 = require("./snooze-message.component");
 var incident_checked_component_1 = require("./incident-checked.component");
+var incident_list_top_bar_component_1 = require("./incident-list-top-bar.component");
 var IncidentsModule = (function () {
     function IncidentsModule() {
     }
@@ -45,6 +46,7 @@ IncidentsModule = __decorate([
             incident_row_component_1.IncidentRow,
             incident_checked_component_1.IncidentChecked,
             incident_snooze_button_component_1.IncidentSnoozeButton,
+            incident_list_top_bar_component_1.IncidentListTopBar,
             snooze_message_component_1.SnoozeMessage
         ],
         providers: [

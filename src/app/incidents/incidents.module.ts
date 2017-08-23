@@ -16,6 +16,7 @@ import {IncidentsBackendService} from '../backend/incidents-backend.service';
 import {SnoozeBackendService} from '../backend/snooze-backend.service';
 import {SnoozeMessage} from './snooze-message.component';
 import {IncidentChecked} from './incident-checked.component';
+import {IncidentListTopBar} from './incident-list-top-bar.component';
 
 @NgModule({
   imports: [
@@ -33,6 +34,7 @@ import {IncidentChecked} from './incident-checked.component';
     IncidentRow,
     IncidentChecked,
     IncidentSnoozeButton,
+    IncidentListTopBar,
     SnoozeMessage
   ],
   providers: [
