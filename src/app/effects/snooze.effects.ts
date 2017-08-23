@@ -30,7 +30,7 @@ export class SnoozeEffects {
   @Effect() snoozeEffect = this.actions
     .ofType(SnooozeActions.SNOOZE_REQUEST)
     .delay(5000)
-    .filter((action: SnoozeAction) => this.snoozeState.ongoingSnoozeIncidentIds.includes(action.incidentId))
+    .filter((action: SnoozeAction) => this.snoozeState.ongoing.confirmed && this.snoozeState.ongoing.id === action.incidentId)
     .mergeMap((action: SnoozeAction) => this.snoozeBackendService.snooze(action.incidentId)
       .map(() => new SnoozeSuccessAction(action.incidentId))
     );

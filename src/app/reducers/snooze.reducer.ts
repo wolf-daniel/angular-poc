@@ -10,11 +10,17 @@ export function snoozeReducer(state: SnoozeState = SnoozeInitialState, action: S
     case SnoozeActions.SNOOZE_REQUEST:
       return Object.assign({}, state, {
         snoozedIncidentIds: [...state.snoozedIncidentIds, action.incidentId],
-        ongoingSnoozeIncidentIds: [...state.ongoingSnoozeIncidentIds, action.incidentId]
+        ongoing: {
+          id: action.incidentId,
+          confirmed: false
+        }
       });
     case SnoozeActions.SNOOZE_SUCCESS:
       return Object.assign({}, state, {
-        ongoingSnoozeIncidentIds: state.ongoingSnoozeIncidentIds.filter(id => id !== action.incidentId)
+        ongoing: {
+          id: null,
+          confirmed: false
+        }
       });
     case SnoozeActions.UNSNOOZE_REQUEST:
       return Object.assign({}, state, {
@@ -22,12 +28,18 @@ export function snoozeReducer(state: SnoozeState = SnoozeInitialState, action: S
       });
     case SnoozeActions.CONFIRM_SNOOZE:
       return Object.assign({}, state, {
-        ongoingSnoozeIncidentIds: state.ongoingSnoozeIncidentIds.filter(id => id !== action.incidentId)
+        ongoing: {
+          id: state.ongoing.id,
+          confirmed: true
+        }
       });
     case SnoozeActions.UNDO_SNOOZE:
       return Object.assign({}, state, {
         snoozedIncidentIds: state.snoozedIncidentIds.filter(id => id !== action.incidentId),
-        ongoingSnoozeIncidentIds: state.ongoingSnoozeIncidentIds.filter(id => id !== action.incidentId)
+        ongoing: {
+          id: null,
+          confirmed: false
+        }
       });
     default:
       return Object.assign({}, state);

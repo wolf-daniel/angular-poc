@@ -24,13 +24,13 @@ export class SnoozeMessage implements OnInit {
       this.store.select('snooze'),
       this.store.select('incidentList'),
       (snoozeState: SnoozeState, incidentListState: IncidentListState) => {
-        return snoozeState.ongoingSnoozeIncidentIds.map(id => incidentListState.incidents.find(incident => incident.id === id));
+        return snoozeState.ongoing.id && !snoozeState.ongoing.confirmed ?
+          incidentListState.incidents.find(incident => incident.id === snoozeState.ongoing.id) :
+          null;
       }
     )
-    .subscribe(ongoingSnoozeIncidents => {
-      this.ongoingSnoozeIncident = ongoingSnoozeIncidents && ongoingSnoozeIncidents.length ?
-        ongoingSnoozeIncidents[0] :
-        null;
+    .subscribe(ongoingSnoozeIncident => {
+      this.ongoingSnoozeIncident = ongoingSnoozeIncident;
     });
   }
 
