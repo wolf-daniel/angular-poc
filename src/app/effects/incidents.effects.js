@@ -10,30 +10,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var http_1 = require("@angular/http");
 var effects_1 = require("@ngrx/effects");
-require("rxjs/add/operator/concatMap");
-require("rxjs/add/operator/switchMap");
+require("rxjs/add/operator/mergeMap");
 require("rxjs/add/operator/map");
-require("rxjs/add/operator/toPromise");
 var IncidentsActions = require("../actions/incidents.actions");
 var incidents_actions_1 = require("../actions/incidents.actions");
+var incidents_backend_service_1 = require("../backend/incidents-backend.service");
 var IncidentEffects = (function () {
-    function IncidentEffects(actions, http) {
+    function IncidentEffects(actions, incidentsBackendService) {
         var _this = this;
         this.actions = actions;
-        this.http = http;
-        this.baseUrl = 'api/incidents';
+        this.incidentsBackendService = incidentsBackendService;
         this.getIncidentList = this.actions
             .ofType(IncidentsActions.GET_INCIDENT_LIST_REQUEST)
-            .switchMap(function () { return _this.fetchIncidents()
+            .mergeMap(function () { return _this.incidentsBackendService.fetchIncidents()
             .map(function (incidents) { return new incidents_actions_1.GetIncidentListSuccessAction(incidents); }); });
     }
-    IncidentEffects.prototype.fetchIncidents = function () {
-        return this.http
-            .get("" + this.baseUrl)
-            .map(function (response) { return response.json().data; });
-    };
     return IncidentEffects;
 }());
 __decorate([
@@ -42,7 +34,7 @@ __decorate([
 ], IncidentEffects.prototype, "getIncidentList", void 0);
 IncidentEffects = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [effects_1.Actions, http_1.Http])
+    __metadata("design:paramtypes", [effects_1.Actions, incidents_backend_service_1.IncidentsBackendService])
 ], IncidentEffects);
 exports.IncidentEffects = IncidentEffects;
 //# sourceMappingURL=incidents.effects.js.map

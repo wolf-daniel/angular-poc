@@ -12,6 +12,8 @@ import {foldersReducer} from '../reducers/folders.reducer';
 import {IncidentEffects} from '../effects/incidents.effects';
 import {SnoozeEffects} from '../effects/snooze.effects';
 import {FoldersMenu} from '../folders/folders-menu.component';
+import {IncidentsBackendService} from '../backend/incidents-backend.service';
+import {SnoozeBackendService} from '../backend/snooze-backend.service';
 
 @NgModule({
   imports: [
@@ -28,6 +30,10 @@ import {FoldersMenu} from '../folders/folders-menu.component';
     IncidentList,
     IncidentRow,
     IncidentSnoozeButton
+  ],
+  providers: [
+    IncidentsBackendService,
+    SnoozeBackendService
   ]
 })
 export class IncidentsModule {}
