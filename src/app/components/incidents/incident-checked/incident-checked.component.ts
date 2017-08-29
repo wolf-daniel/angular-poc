@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 
-import {AppState} from '../states/app-state';
-import {DeselectIncidentAction, SelectIncidentAction} from '../actions/incidents.actions';
+import {AppState} from '../../../states/app-state';
+import {DeselectIncidentAction, SelectIncidentAction} from '../../../actions/incidents.actions';
 
 @Component({
   selector: 'incident-checked',

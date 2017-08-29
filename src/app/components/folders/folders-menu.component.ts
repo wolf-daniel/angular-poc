@@ -2,11 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 
 import {Folder} from './folder';
-import {AppState} from '../states/app-state';
-import {MoveToFolderAction} from '../actions/folders.actions';
+import {AppState} from '../../states/app-state';
+import {MoveToFolderAction} from '../../actions/folders.actions';
 import {Observable} from 'rxjs/Observable';
-import {FoldersState} from '../states/folders.state';
-import {IncidentListState} from '../states/incidents.state';
+import {FoldersState} from '../../states/folders.state';
+import {IncidentListState} from '../../states/incidents.state';
 
 @Component({
   selector: 'folders-menu',

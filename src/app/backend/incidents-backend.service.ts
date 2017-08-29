@@ -3,7 +3,7 @@ import {Http} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
-import {Incident} from '../incidents/incident';
+import {Incident} from '../components/incidents/incident';
 
 @Injectable()
 export class IncidentsBackendService {

@@ -1,4 +1,4 @@
-import {Folder} from '../folders/folder';
+import {Folder} from '../components/folders/folder';
 export interface FoldersState {
   folders: Folder[];
   currentFolderId: string;

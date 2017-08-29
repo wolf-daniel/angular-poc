@@ -12,14 +12,9 @@ var forms_1 = require("@angular/forms");
 var http_1 = require("@angular/http");
 var angular_in_memory_web_api_1 = require("angular-in-memory-web-api");
 var app_routing_module_1 = require("./app-routing.module");
-var app_component_1 = require("./heroes/app.component");
-var heroes_component_1 = require("./heroes/heroes.component");
-var hero_details_component_1 = require("./heroes/hero-details.component");
-var dashboard_component_1 = require("./heroes/dashboard.component");
-var hero_service_1 = require("./heroes/hero.service");
-var in_memory_data_service_1 = require("./heroes/in-memory-data.service");
-var hero_search_component_1 = require("./heroes/hero-search.component");
-var incidents_module_1 = require("./incidents/incidents.module");
+var app_component_1 = require("./app.component");
+var in_memory_data_service_1 = require("./utils/in-memory-data.service");
+var incidents_module_1 = require("./components/incidents/incidents.module");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -36,17 +31,10 @@ AppModule = __decorate([
             incidents_module_1.IncidentsModule
         ],
         declarations: [
-            app_component_1.AppComponent,
-            heroes_component_1.HeroesComponent,
-            hero_details_component_1.HeroDetailComponent,
-            hero_search_component_1.HeroSearchComponent,
-            dashboard_component_1.DashboardComponent
+            app_component_1.AppComponent
         ],
         bootstrap: [
             app_component_1.AppComponent
-        ],
-        providers: [
-            hero_service_1.HeroService
         ]
     })
 ], AppModule);

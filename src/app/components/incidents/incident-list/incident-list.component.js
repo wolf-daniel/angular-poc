@@ -14,7 +14,7 @@ var store_1 = require("@ngrx/store");
 var Observable_1 = require("rxjs/Observable");
 require("rxjs/add/operator/combineLatest");
 require("rxjs/rx");
-var incidents_actions_1 = require("../actions/incidents.actions");
+var incidents_actions_1 = require("../../../actions/incidents.actions");
 var IncidentList = (function () {
     function IncidentList(store) {
         this.store = store;

@@ -3,11 +3,11 @@ import {Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
 
-import {AppState} from '../states/app-state';
-import {IncidentListState} from '../states/incidents.state';
-import {SnoozeState} from '../states/snooze.state';
-import {Incident} from './incident';
-import {ConfirmSnoozeAction, UndoSnoozeAction} from '../actions/snooze.actions';
+import {AppState} from '../../../states/app-state';
+import {IncidentListState} from '../../../states/incidents.state';
+import {SnoozeState} from '../../../states/snooze.state';
+import {Incident} from '../incident';
+import {ConfirmSnoozeAction, UndoSnoozeAction} from '../../../actions/snooze.actions';
 
 @Component({
   selector: 'snooze-message',

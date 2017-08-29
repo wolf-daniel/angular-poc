@@ -4,9 +4,9 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/combineLatest';
 import 'rxjs/rx';
 
-import {AppState} from '../states/app-state';
-import {IncidentListState} from '../states/incidents.state';
-import {FoldersState} from '../states/folders.state';
+import {AppState} from '../../../states/app-state';
+import {IncidentListState} from '../../../states/incidents.state';
+import {FoldersState} from '../../../states/folders.state';
 
 @Component({
   selector: 'incident-list-top-bar',

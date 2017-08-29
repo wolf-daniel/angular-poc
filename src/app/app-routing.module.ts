@@ -1,24 +1,9 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
-import {HeroesComponent} from './heroes/heroes.component';
-import {DashboardComponent} from './heroes/dashboard.component';
-import {HeroDetailComponent} from './heroes/hero-details.component';
-import {IncidentList} from './incidents/incident-list.component';
+import {IncidentList} from './components/incidents/incident-list/incident-list.component';
 
 const routes: Routes = [
-  {
-    path: 'heroes',
-    component: HeroesComponent
-  },
-  {
-    path: 'dashboard',
-    component: DashboardComponent
-  },
-  {
-    path: 'detail/:id',
-    component: HeroDetailComponent
-  },
   {
     path: 'incidents',
     component: IncidentList

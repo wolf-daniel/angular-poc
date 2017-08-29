@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {Incident} from './incident';
+import {Incident} from '../incident';
 
 @Component({
   selector: 'incident-row',

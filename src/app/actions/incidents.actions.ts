@@ -1,5 +1,5 @@
 import {Action} from '@ngrx/store';
-import {Incident} from '../incidents/incident';
+import {Incident} from '../components/incidents/incident';
 
 export const GET_INCIDENT_LIST_REQUEST = 'GET_INCIDENT_LIST_REQUEST';
 export const GET_INCIDENT_LIST_SUCCESS = 'GET_INCIDENT_LIST_SUCCESS';

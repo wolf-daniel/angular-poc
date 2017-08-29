@@ -8,23 +8,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var heroes_component_1 = require("./heroes/heroes.component");
-var dashboard_component_1 = require("./heroes/dashboard.component");
-var hero_details_component_1 = require("./heroes/hero-details.component");
-var incident_list_component_1 = require("./incidents/incident-list.component");
+var incident_list_component_1 = require("./components/incidents/incident-list/incident-list.component");
 var routes = [
-    {
-        path: 'heroes',
-        component: heroes_component_1.HeroesComponent
-    },
-    {
-        path: 'dashboard',
-        component: dashboard_component_1.DashboardComponent
-    },
-    {
-        path: 'detail/:id',
-        component: hero_details_component_1.HeroDetailComponent
-    },
     {
         path: 'incidents',
         component: incident_list_component_1.IncidentList

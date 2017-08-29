@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 
-import {AppState} from '../states/app-state';
-import {GetSnoozeAction, SnoozeAction, UnsnoozeAction} from '../actions/snooze.actions';
+import {AppState} from '../../../states/app-state';
+import {GetSnoozeAction, SnoozeAction, UnsnoozeAction} from '../../../actions/snooze.actions';
 
 @Component({
   selector: 'incident-snooze-button',
