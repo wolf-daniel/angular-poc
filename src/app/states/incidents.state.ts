@@ -1,4 +1,4 @@
-import {Incident} from '../incidents/incident';
+import {Incident} from '../components/incidents/incident';
 
 export interface IncidentListState {
   incidents: Incident[];
