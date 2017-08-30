@@ -1,12 +1,12 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
-import {IncidentList} from './components/incidents/incident-list/incident-list.component';
+import {Incidents} from './components/incidents/incidents.component';
 
 const routes: Routes = [
   {
     path: 'incidents',
-    component: IncidentList
+    component: Incidents
   },
   {
     path: '',
