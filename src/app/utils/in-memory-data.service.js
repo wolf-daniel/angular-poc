@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var Observable_1 = require("rxjs/Observable");
 var InMemoryDataService = (function () {
     function InMemoryDataService() {
     }
@@ -64,6 +65,16 @@ var InMemoryDataService = (function () {
                     ]
                 }
             ],
+            folders: [
+                {
+                    id: 'active',
+                    name: 'Active'
+                },
+                {
+                    id: 'snoozed',
+                    name: 'Snoozed'
+                }
+            ],
             snooze: [
                 {
                     id: '2'
@@ -83,6 +94,12 @@ var InMemoryDataService = (function () {
                 { id: 20, name: 'Tornado' }
             ]
         };
+    };
+    InMemoryDataService.prototype.get = function (interceptorArgs) {
+        return new Observable_1.Observable(function (observer) {
+            var responseOptions;
+            var _a = interceptorArgs.requestInfo, id = _a.id, query = _a.query, collection = _a.collection, collectionName = _a.collectionName, headers = _a.headers, req = _a.req;
+        });
     };
     return InMemoryDataService;
 }());

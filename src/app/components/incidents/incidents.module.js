@@ -8,23 +8,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
-var store_1 = require("@ngrx/store");
-var effects_1 = require("@ngrx/effects");
 var incidents_component_1 = require("./incidents.component");
 var incident_list_component_1 = require("./incident-list/incident-list.component");
 var incident_row_component_1 = require("./incident-row/incident-row.component");
 var incident_snooze_button_component_1 = require("./incident-snooze-button/incident-snooze-button.component");
-var incident_list_reducer_1 = require("../../reducers/incident-list.reducer");
-var snooze_reducer_1 = require("../../reducers/snooze.reducer");
-var folders_reducer_1 = require("../../reducers/folders.reducer");
-var incidents_effects_1 = require("../../effects/incidents.effects");
-var snooze_effects_1 = require("../../effects/snooze.effects");
 var folders_menu_component_1 = require("../folders/folders-menu.component");
 var incidents_backend_service_1 = require("../../backend/incidents-backend.service");
 var snooze_backend_service_1 = require("../../backend/snooze-backend.service");
 var snooze_message_component_1 = require("./snooze-message/snooze-message.component");
 var incident_checked_component_1 = require("./incident-checked/incident-checked.component");
 var incident_list_top_bar_component_1 = require("./incident-list-top-bar/incident-list-top-bar.component");
+var incidents_store_1 = require("../../stores/incidents.store");
+var folders_backend_service_1 = require("../../backend/folders-backend.service");
+var folders_store_1 = require("../../stores/folders.store");
+var snooze_store_1 = require("../../stores/snooze.store");
 var IncidentsModule = (function () {
     function IncidentsModule() {
     }
@@ -33,13 +30,7 @@ var IncidentsModule = (function () {
 IncidentsModule = __decorate([
     core_1.NgModule({
         imports: [
-            platform_browser_1.BrowserModule,
-            store_1.StoreModule.forRoot({
-                incidentList: incident_list_reducer_1.incidentListReducer,
-                snooze: snooze_reducer_1.snoozeReducer,
-                folders: folders_reducer_1.foldersReducer
-            }),
-            effects_1.EffectsModule.forRoot([incidents_effects_1.IncidentEffects, snooze_effects_1.SnoozeEffects]),
+            platform_browser_1.BrowserModule
         ],
         declarations: [
             incidents_component_1.Incidents,
@@ -53,7 +44,11 @@ IncidentsModule = __decorate([
         ],
         providers: [
             incidents_backend_service_1.IncidentsBackendService,
-            snooze_backend_service_1.SnoozeBackendService
+            snooze_backend_service_1.SnoozeBackendService,
+            folders_backend_service_1.FoldersBackendService,
+            incidents_store_1.default,
+            folders_store_1.default,
+            snooze_store_1.default
         ]
     })
 ], IncidentsModule);

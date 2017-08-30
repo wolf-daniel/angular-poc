@@ -1,14 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {Incident} from '../incident';
-import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/combineLatest';
-import 'rxjs/rx';
 
-import {GetIncidentListAction} from '../../../actions/incidents.actions';
-import {AppState} from '../../../states/app-state';
-import {IncidentListState} from '../../../states/incidents.state';
-import {FoldersState} from '../../../states/folders.state';
+import IncidentsStore from '../../../stores/incidents.store';
+import FoldersStore from '../../../stores/folders.store';
 
 @Component({
   selector: 'incident-list',
@@ -16,21 +12,13 @@ import {FoldersState} from '../../../states/folders.state';
   styleUrls: ['./incident-list.component.css']
 })
 export class IncidentList implements OnInit {
-  incidents: Incident[];
+  incidents$: Observable<Incident[]>;
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private incidentsStore: IncidentsStore) {
+    this.incidents$ = incidentsStore.incidents;
+  }
 
   ngOnInit(): void {
-    Observable.combineLatest(
-      this.store.select('incidentList'),
-      this.store.select('folders'),
-      (incidentListState: IncidentListState, foldersState: FoldersState) => {
-        return incidentListState.incidents.filter(incident => incident.folderId === foldersState.currentFolderId);
-      }
-    ).subscribe(incidents => {
-      this.incidents = incidents;
-    });
-
-    this.store.dispatch(new GetIncidentListAction());
+    this.incidentsStore.getIncidents();
   }
 }

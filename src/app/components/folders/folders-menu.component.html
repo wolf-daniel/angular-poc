@@ -3,6 +3,6 @@
         *ngFor="let folder of folders"
         [ngClass]="{active: isActive(folder.id)}"
         (click)="moveToFolder(folder.id)">
-    {{folder.name}} ({{getFolderCount(folder.id)}})
+    {{folder.name}}
   </span>
 </div>

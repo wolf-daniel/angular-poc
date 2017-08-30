@@ -10,23 +10,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var store_1 = require("@ngrx/store");
-var Observable_1 = require("rxjs/Observable");
 require("rxjs/add/operator/combineLatest");
-require("rxjs/rx");
-var incidents_actions_1 = require("../../../actions/incidents.actions");
+var incidents_store_1 = require("../../../stores/incidents.store");
 var IncidentList = (function () {
-    function IncidentList(store) {
-        this.store = store;
+    function IncidentList(incidentsStore) {
+        this.incidentsStore = incidentsStore;
+        this.incidents$ = incidentsStore.incidents;
     }
     IncidentList.prototype.ngOnInit = function () {
-        var _this = this;
-        Observable_1.Observable.combineLatest(this.store.select('incidentList'), this.store.select('folders'), function (incidentListState, foldersState) {
-            return incidentListState.incidents.filter(function (incident) { return incident.folderId === foldersState.currentFolderId; });
-        }).subscribe(function (incidents) {
-            _this.incidents = incidents;
-        });
-        this.store.dispatch(new incidents_actions_1.GetIncidentListAction());
+        this.incidentsStore.getIncidents();
     };
     return IncidentList;
 }());
@@ -36,7 +28,7 @@ IncidentList = __decorate([
         templateUrl: './incident-list.component.html',
         styleUrls: ['./incident-list.component.css']
     }),
-    __metadata("design:paramtypes", [store_1.Store])
+    __metadata("design:paramtypes", [incidents_store_1.default])
 ], IncidentList);
 exports.IncidentList = IncidentList;
 //# sourceMappingURL=incident-list.component.js.map

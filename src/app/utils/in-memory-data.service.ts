@@ -1,4 +1,7 @@
-import {InMemoryDbService} from 'angular-in-memory-web-api';
+import {HttpMethodInterceptorArgs, InMemoryDbService} from 'angular-in-memory-web-api';
+import {Observable} from 'rxjs/Observable';
+import {Response, ResponseOptions} from '@angular/http';
+import {Observer} from 'rxjs/Observer';
 
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
@@ -62,6 +65,16 @@ export class InMemoryDataService implements InMemoryDbService {
           ]
         }
       ],
+      folders: [
+        {
+          id: 'active',
+          name: 'Active'
+        },
+        {
+          id: 'snoozed',
+          name: 'Snoozed'
+        }
+      ],
       snooze: [
         {
           id: '2'
@@ -81,5 +94,15 @@ export class InMemoryDataService implements InMemoryDbService {
         { id: 20, name: 'Tornado' }
       ]
     };
+  }
+
+  get(interceptorArgs: HttpMethodInterceptorArgs) {
+    return new Observable<Response>((observer: Observer<Response>) => {
+      let responseOptions: ResponseOptions;
+
+      const {id, query, collection, collectionName, headers, req} = interceptorArgs.requestInfo;
+
+
+    });
   }
 }

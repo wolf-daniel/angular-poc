@@ -2,19 +2,17 @@ import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }   from '@angular/forms';
 import {HttpModule} from '@angular/http';
-import {InMemoryWebApiModule} from 'angular-in-memory-web-api';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {InMemoryDataService} from './utils/in-memory-data.service';
 import {IncidentsModule} from './components/incidents/incidents.module';
+import EventBus from './utils/event-bus';
 
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    InMemoryWebApiModule.forRoot(InMemoryDataService),
     AppRoutingModule,
     IncidentsModule
   ],
@@ -23,6 +21,9 @@ import {IncidentsModule} from './components/incidents/incidents.module';
   ],
   bootstrap: [
     AppComponent
+  ],
+  providers: [
+    EventBus
   ]
 })
 export class AppModule { }

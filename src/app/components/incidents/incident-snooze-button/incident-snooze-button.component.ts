@@ -1,8 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Store} from '@ngrx/store';
 
-import {AppState} from '../../../states/app-state';
-import {GetSnoozeAction, SnoozeAction, UnsnoozeAction} from '../../../actions/snooze.actions';
+import SnoozeStore from '../../../stores/snooze.store';
 
 @Component({
   selector: 'incident-snooze-button',
@@ -13,24 +11,23 @@ export class IncidentSnoozeButton implements OnInit {
   @Input() incidentId: string;
   private isSnoozed: boolean;
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private snoozeStore: SnoozeStore) {}
 
   ngOnInit(): void {
-    this.store.select('snooze').subscribe(snoozeState => {
-      this.isSnoozed = snoozeState.snoozedIncidentIds.includes(this.incidentId);
+    this.snoozeStore.snoozedIncidentsIds.subscribe(snoozedIncidentsIds => {
+      this.isSnoozed = snoozedIncidentsIds.includes(this.incidentId);
     });
-    this.store.dispatch(new GetSnoozeAction());
   }
 
   snooze() {
     if (!this.isSnoozed) {
-      this.store.dispatch(new SnoozeAction(this.incidentId));
+      this.snoozeStore.snooze(this.incidentId);
     }
   }
 
   unsnooze() {
     if (this.isSnoozed) {
-      this.store.dispatch(new UnsnoozeAction(this.incidentId));
+      this.snoozeStore.unsnooze(this.incidentId);
     }
   }
 }
