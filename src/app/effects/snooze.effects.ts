@@ -31,7 +31,6 @@ export class SnoozeEffects {
     .ofType(SnooozeActions.SNOOZE_REQUEST)
     .delay(5000)
     .filter((action: SnoozeAction) => {
-    console.log('state:', this.snoozeState)
       return this.snoozeState.ongoing.confirmed && this.snoozeState.ongoing.id === action.incidentId
     })
     .mergeMap((action: SnoozeAction) => this.snoozeBackendService.snooze(action.incidentId)

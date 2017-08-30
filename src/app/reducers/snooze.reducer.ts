@@ -2,7 +2,6 @@ import * as SnoozeActions from '../actions/snooze.actions';
 import {SnoozeInitialState, SnoozeState} from '../states/snooze.state';
 
 export function snoozeReducer(state: SnoozeState = SnoozeInitialState, action: SnoozeActions.All) {
-  console.log('action:', action)
   switch (action.type) {
     case SnoozeActions.GET_SNOOZE_SUCCESS:
       return {
