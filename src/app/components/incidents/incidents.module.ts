@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import {StoreModule} from '@ngrx/store';
 import {EffectsModule} from '@ngrx/effects';
 
+import {Incidents} from './incidents.component';
 import {IncidentList} from './incident-list/incident-list.component';
 import {IncidentRow} from './incident-row/incident-row.component';
 import {IncidentSnoozeButton} from './incident-snooze-button/incident-snooze-button.component';
@@ -29,6 +30,7 @@ import {IncidentListTopBar} from './incident-list-top-bar/incident-list-top-bar.
     EffectsModule.forRoot([IncidentEffects, SnoozeEffects]),
   ],
   declarations: [
+    Incidents,
     FoldersMenu,
     IncidentList,
     IncidentRow,

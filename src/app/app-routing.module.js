@@ -8,11 +8,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var incident_list_component_1 = require("./components/incidents/incident-list/incident-list.component");
+var incidents_component_1 = require("./components/incidents/incidents.component");
 var routes = [
     {
         path: 'incidents',
-        component: incident_list_component_1.IncidentList
+        component: incidents_component_1.Incidents
     },
     {
         path: '',

@@ -10,6 +10,7 @@ var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var store_1 = require("@ngrx/store");
 var effects_1 = require("@ngrx/effects");
+var incidents_component_1 = require("./incidents.component");
 var incident_list_component_1 = require("./incident-list/incident-list.component");
 var incident_row_component_1 = require("./incident-row/incident-row.component");
 var incident_snooze_button_component_1 = require("./incident-snooze-button/incident-snooze-button.component");
@@ -41,6 +42,7 @@ IncidentsModule = __decorate([
             effects_1.EffectsModule.forRoot([incidents_effects_1.IncidentEffects, snooze_effects_1.SnoozeEffects]),
         ],
         declarations: [
+            incidents_component_1.Incidents,
             folders_menu_component_1.FoldersMenu,
             incident_list_component_1.IncidentList,
             incident_row_component_1.IncidentRow,
