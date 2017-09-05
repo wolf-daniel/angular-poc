@@ -24,14 +24,8 @@ export default class IncidentsStore {
     });
 
     this.bus.events
-      .filter(event => {
-        console.log('filter - event:', event);
-        return event.type === 'INCIDENT_SNOOZED'
-      })
-      .subscribe(event => {
-        console.log('subscribe - event:', event);
-        this.incidentSnoozed(event.incidentId)
-      });
+      .filter(event => event.type === 'INCIDENT_SNOOZED')
+      .subscribe(event => this.incidentSnoozed(event.incidentId));
   }
 
   getIncidents(): void {
