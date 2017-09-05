@@ -13,14 +13,21 @@ import AppConstants from '../constants';
 @Injectable()
 export default class IncidentsStore {
   public incidents$: BehaviorSubject<Incident[]>;
+  public selectedIncidentIds$: BehaviorSubject<string[]>;
+
   private _incidents: Incident[];
-  private currentFolderId: string;
-  private currentPage: number;
+  private _currentFolderId: string;
+  private _currentPage: number;
+  private _selectedIncidentsIds: string[];
 
   constructor(private incidentsBackendService: IncidentsBackendService, private foldersStore: FoldersStore, private bus: EventBus) {
-    this.incidents$ = new BehaviorSubject([]);
     this._incidents = [];
-    this.currentPage = 1;
+
+    this.resetPage();
+    this.resetSelectedIncidentIds();
+
+    this.incidents$ = new BehaviorSubject(this._incidents);
+    this.selectedIncidentIds$ = new BehaviorSubject(this._selectedIncidentsIds);
 
     this.folderChanged = this.folderChanged.bind(this);
 
@@ -47,30 +54,18 @@ export default class IncidentsStore {
   }
 
   getIncidents(): void {
-    this.incidentsBackendService.getIncidents(this.currentFolderId, this.currentPage)
-      .subscribe(incidents => {
-        this._incidents = incidents;
-        this.incidents$.next(this._incidents);
-      })
-  }
-
-  getNextIncidents(): void {
-    this.incidentsBackendService.getIncidents(this.currentFolderId, this.currentPage)
-      .subscribe(incidents => {
-        this._incidents.push(...incidents);
-        this.incidents$.next(this._incidents);
-      })
+    this.fetchIncidents();
   }
 
   nextPage(): void {
-    if ((this.currentPage) * AppConstants.INCIDENTS_PAGE_SIZE === this._incidents.length) {
-      this.currentPage++;
-      this.getNextIncidents();
+    if ((this._currentPage) * AppConstants.INCIDENTS_PAGE_SIZE === this._incidents.length) {
+      this._currentPage++;
+      this.fetchIncidents(true);
     }
   }
 
   incidentChanged(incomingIncident: Incident) {
-    if (incomingIncident.folderId !== this.currentFolderId) {
+    if (incomingIncident.folderId !== this._currentFolderId) {
       return
     }
 
@@ -93,16 +88,55 @@ export default class IncidentsStore {
   }
 
   folderChanged(folderId: string) {
-    this.currentFolderId = folderId;
+    this._currentFolderId = folderId;
+    this.resetSelectedIncidentIds();
     this.resetPage();
     this.getIncidents();
+
+    this.selectedIncidentIds$.next(this._selectedIncidentsIds);
+  }
+
+  selectIncident(incidentId: string) {
+    if (!this._selectedIncidentsIds.includes(incidentId)) {
+      this._selectedIncidentsIds.push(incidentId);
+      this.selectedIncidentIds$.next(this._selectedIncidentsIds);
+    }
+  }
+
+  unselectIncident(incidentId: string) {
+    if (this._selectedIncidentsIds.includes(incidentId)) {
+      remove(this._selectedIncidentsIds, id => id === incidentId);
+      this.selectedIncidentIds$.next(this._selectedIncidentsIds);
+    }
   }
 
   resetPage() {
-    this.currentPage = 1;
+    this._currentPage = 1;
+  }
+
+  resetSelectedIncidentIds() {
+    this._selectedIncidentsIds = [];
+  }
+
+  protected fetchIncidents(add = false) {
+    this.incidentsBackendService.getIncidents(this._currentFolderId, this._currentPage)
+      .subscribe(incidents => {
+        if (add) {
+          this._incidents.push(...incidents);
+        } else {
+          this._incidents = incidents;
+        }
+
+        this.incidents$.next(this._incidents);
+      })
+
   }
 
   get incidents() {
     return this.incidents$.asObservable();
+  }
+
+  get selectedIncidentIds() {
+    return this.selectedIncidentIds$.asObservable();
   }
 }
