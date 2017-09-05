@@ -3,7 +3,7 @@ export interface Incident {
   folderId: string;
   status: string;
   sourceSystem: string;
-  entities: Entity[];
+  entities?: Entity[];
 }
 
 export interface Entity {

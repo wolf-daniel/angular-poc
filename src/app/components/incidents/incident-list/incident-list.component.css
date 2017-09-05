@@ -1,3 +1,9 @@
 .incident-list {
   width: 700px;
+  height: calc(100% - 150px);
+  overflow-y: auto;
+}
+
+virtual-scroll {
+  height: calc(100% - 150px);
 }

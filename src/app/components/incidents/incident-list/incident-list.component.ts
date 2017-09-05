@@ -4,7 +4,6 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/combineLatest';
 
 import IncidentsStore from '../../../stores/incidents.store';
-import FoldersStore from '../../../stores/folders.store';
 
 @Component({
   selector: 'incident-list',

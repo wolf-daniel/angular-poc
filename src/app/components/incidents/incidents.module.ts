@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { APP_INITIALIZER } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {APP_INITIALIZER} from '@angular/core';
+import {VirtualScrollModule} from 'angular2-virtual-scroll';
 
 import {Incidents} from './incidents.component';
 import {IncidentList} from './incident-list/incident-list.component';
@@ -20,7 +21,8 @@ import SocketUtil from '../../utils/socket-util.service';
 
 @NgModule({
   imports: [
-    BrowserModule
+    BrowserModule,
+    VirtualScrollModule
   ],
   declarations: [
     Incidents,

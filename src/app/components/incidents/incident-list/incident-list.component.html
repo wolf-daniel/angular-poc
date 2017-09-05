@@ -1,3 +1,7 @@
 <div class="incident-list">
-  <incident-row *ngFor="let incident of incidents$ | async" [incident]="incident"></incident-row>
+  <virtual-scroll #scroll
+                  [items]="incidents$ | async"
+                  [childHeight]="45">
+    <incident-row *ngFor="let incident of scroll.viewPortItems" [incident]="incident"></incident-row>
+  </virtual-scroll>
 </div>

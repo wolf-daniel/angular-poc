@@ -31,7 +31,8 @@
 
       'lodash': 'npm:lodash/lodash.js',
       'class-autobind': 'npm:class-autobind/lib/autobind.js',
-      'socket.io-client': 'npm:socket.io-client/dist/socket.io.js'
+      'socket.io-client': 'npm:socket.io-client/dist/socket.io.js',
+      'angular2-virtual-scroll': 'npm:angular2-virtual-scroll/dist/virtual-scroll.js'
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {

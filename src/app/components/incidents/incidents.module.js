@@ -9,6 +9,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var core_2 = require("@angular/core");
+var angular2_virtual_scroll_1 = require("angular2-virtual-scroll");
 var incidents_component_1 = require("./incidents.component");
 var incident_list_component_1 = require("./incident-list/incident-list.component");
 var incident_row_component_1 = require("./incident-row/incident-row.component");
@@ -32,7 +33,8 @@ var IncidentsModule = (function () {
 IncidentsModule = __decorate([
     core_1.NgModule({
         imports: [
-            platform_browser_1.BrowserModule
+            platform_browser_1.BrowserModule,
+            angular2_virtual_scroll_1.VirtualScrollModule
         ],
         declarations: [
             incidents_component_1.Incidents,
