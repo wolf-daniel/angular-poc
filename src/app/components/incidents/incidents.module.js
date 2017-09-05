@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
+var core_2 = require("@angular/core");
 var incidents_component_1 = require("./incidents.component");
 var incident_list_component_1 = require("./incident-list/incident-list.component");
 var incident_row_component_1 = require("./incident-row/incident-row.component");
@@ -22,6 +23,7 @@ var incidents_store_1 = require("../../stores/incidents.store");
 var folders_backend_service_1 = require("../../backend/folders-backend.service");
 var folders_store_1 = require("../../stores/folders.store");
 var snooze_store_1 = require("../../stores/snooze.store");
+var socket_util_service_1 = require("../../utils/socket-util.service");
 var IncidentsModule = (function () {
     function IncidentsModule() {
     }
@@ -48,7 +50,14 @@ IncidentsModule = __decorate([
             folders_backend_service_1.FoldersBackendService,
             incidents_store_1.default,
             folders_store_1.default,
-            snooze_store_1.default
+            snooze_store_1.default,
+            socket_util_service_1.default,
+            {
+                provide: core_2.APP_INITIALIZER,
+                useFactory: function (socketUtil) { return function () { return socketUtil.connect(); }; },
+                deps: [socket_util_service_1.default],
+                multi: true
+            }
         ]
     })
 ], IncidentsModule);

@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { APP_INITIALIZER } from '@angular/core';
 
 import {Incidents} from './incidents.component';
 import {IncidentList} from './incident-list/incident-list.component';
@@ -15,6 +16,7 @@ import IncidentsStore from '../../stores/incidents.store';
 import {FoldersBackendService} from '../../backend/folders-backend.service';
 import FoldersStore from '../../stores/folders.store';
 import SnoozeStore from '../../stores/snooze.store';
+import SocketUtil from '../../utils/socket-util.service';
 
 @NgModule({
   imports: [
@@ -36,7 +38,14 @@ import SnoozeStore from '../../stores/snooze.store';
     FoldersBackendService,
     IncidentsStore,
     FoldersStore,
-    SnoozeStore
+    SnoozeStore,
+    SocketUtil,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (socketUtil: SocketUtil) => () => socketUtil.connect(),
+      deps: [SocketUtil],
+      multi: true
+    }
   ]
 })
 export class IncidentsModule {}

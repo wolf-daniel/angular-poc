@@ -52,6 +52,10 @@ export default class IncidentsStore {
   }
 
   incidentChanged(incomingIncident: Incident) {
+    if (incomingIncident.folderId !== this.currentFolderId) {
+      return
+    }
+
     const existingIncident = this._incidents.find(incident => incident.id === incomingIncident.id);
     if (!existingIncident) {
       this._incidents.push(incomingIncident);
