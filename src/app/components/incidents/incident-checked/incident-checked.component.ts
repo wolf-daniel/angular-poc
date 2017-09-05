@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import IncidentsStore from '../../../stores/incidents.store';
+import SelectionsStore from '../../../stores/selections.store';
 
 @Component({
   selector: 'incident-checked',
@@ -10,19 +10,19 @@ export class IncidentChecked implements OnInit {
   @Input() incidentId: string;
   private isChecked: boolean;
 
-  constructor(private incidentsStore: IncidentsStore) {}
+  constructor(private selectionsStore: SelectionsStore) {}
 
   ngOnInit(): void {
-    this.incidentsStore.selectedIncidentIds.subscribe(selectedIncidentIds => {
-      this.isChecked = selectedIncidentIds.includes(this.incidentId);
+    this.selectionsStore.selectedIds.subscribe(selectedIds => {
+      this.isChecked = selectedIds.includes(this.incidentId);
     });
   }
 
   toggle() {
     if (this.isChecked) {
-      this.incidentsStore.unselectIncident(this.incidentId);
+      this.selectionsStore.unselect(this.incidentId);
     } else {
-      this.incidentsStore.selectIncident(this.incidentId);
+      this.selectionsStore.select(this.incidentId);
     }
   }
 }

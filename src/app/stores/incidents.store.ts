@@ -13,21 +13,17 @@ import AppConstants from '../constants';
 @Injectable()
 export default class IncidentsStore {
   public incidents$: BehaviorSubject<Incident[]>;
-  public selectedIncidentIds$: BehaviorSubject<string[]>;
 
   private _incidents: Incident[];
   private _currentFolderId: string;
   private _currentPage: number;
-  private _selectedIncidentsIds: string[];
 
   constructor(private incidentsBackendService: IncidentsBackendService, private foldersStore: FoldersStore, private bus: EventBus) {
     this._incidents = [];
 
     this.resetPage();
-    this.resetSelectedIncidentIds();
 
     this.incidents$ = new BehaviorSubject(this._incidents);
-    this.selectedIncidentIds$ = new BehaviorSubject(this._selectedIncidentsIds);
 
     this.folderChanged = this.folderChanged.bind(this);
 
@@ -89,33 +85,12 @@ export default class IncidentsStore {
 
   folderChanged(folderId: string) {
     this._currentFolderId = folderId;
-    this.resetSelectedIncidentIds();
     this.resetPage();
     this.getIncidents();
-
-    this.selectedIncidentIds$.next(this._selectedIncidentsIds);
-  }
-
-  selectIncident(incidentId: string) {
-    if (!this._selectedIncidentsIds.includes(incidentId)) {
-      this._selectedIncidentsIds.push(incidentId);
-      this.selectedIncidentIds$.next(this._selectedIncidentsIds);
-    }
-  }
-
-  unselectIncident(incidentId: string) {
-    if (this._selectedIncidentsIds.includes(incidentId)) {
-      remove(this._selectedIncidentsIds, id => id === incidentId);
-      this.selectedIncidentIds$.next(this._selectedIncidentsIds);
-    }
   }
 
   resetPage() {
     this._currentPage = 1;
-  }
-
-  resetSelectedIncidentIds() {
-    this._selectedIncidentsIds = [];
   }
 
   protected fetchIncidents(add = false) {
@@ -134,9 +109,5 @@ export default class IncidentsStore {
 
   get incidents() {
     return this.incidents$.asObservable();
-  }
-
-  get selectedIncidentIds() {
-    return this.selectedIncidentIds$.asObservable();
   }
 }

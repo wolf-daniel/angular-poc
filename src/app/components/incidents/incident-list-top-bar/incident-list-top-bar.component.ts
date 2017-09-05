@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import 'rxjs/add/operator/combineLatest';
 import 'rxjs/rx';
-import IncidentsStore from '../../../stores/incidents.store';
+
+import SelectionsStore from '../../../stores/selections.store';
 
 @Component({
   selector: 'incident-list-top-bar',
@@ -11,11 +12,11 @@ import IncidentsStore from '../../../stores/incidents.store';
 export class IncidentListTopBar implements OnInit {
   selectedIncidentIds: string[];
 
-  constructor(private incidentsStore: IncidentsStore) {}
+  constructor(private selectionsStore: SelectionsStore) {}
 
   ngOnInit(): void {
-    this.incidentsStore.selectedIncidentIds.subscribe(selectedIncidentIds => {
-      this.selectedIncidentIds = selectedIncidentIds;
+    this.selectionsStore.selectedIds.subscribe(selectedIds => {
+      this.selectedIncidentIds = selectedIds;
     })
   }
 }
