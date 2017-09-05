@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {remove} from 'lodash';
+import {remove, merge} from 'lodash';
 import 'rxjs/add/operator/mergeMap';
 
 import {Incident} from '../components/incidents/incident';
@@ -31,6 +31,10 @@ export default class IncidentsStore {
 
   subscribeToEvents() {
     this.bus.events
+      .filter(event => event.type === Events.INCIDENT_CHANGED)
+      .subscribe(event => this.incidentChanged(event.incident));
+
+    this.bus.events
       .filter(event => event.type === Events.INCIDENT_SNOOZED)
       .subscribe(event => this.incidentSnoozed(event.incidentId));
 
@@ -45,6 +49,15 @@ export default class IncidentsStore {
         this._incidents = incidents;
         this.incidents$.next(this._incidents);
       })
+  }
+
+  incidentChanged(incomingIncident: Incident) {
+    const existingIncident = this._incidents.find(incident => incident.id === incomingIncident.id);
+    if (!existingIncident) {
+      this._incidents.push(incomingIncident);
+    } else {
+      merge(existingIncident, incomingIncident);
+    }
   }
 
   incidentSnoozed(incidentId: string) {

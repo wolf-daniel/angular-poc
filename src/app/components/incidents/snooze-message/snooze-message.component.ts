@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 
 import {Incident} from '../incident';
+import SnoozeStore from '../../../stores/snooze.store';
+import {Observable} from 'rxjs/Observable';
+import IncidentsStore from '../../../stores/incidents.store';
 
 @Component({
   selector: 'snooze-message',
@@ -10,16 +13,19 @@ import {Incident} from '../incident';
 export class SnoozeMessage implements OnInit {
   ongoingSnoozeIncident: Incident;
 
-  constructor() {}
+  constructor(private snoozeStore: SnoozeStore) {}
 
   ngOnInit(): void {
+    this.snoozeStore.ongoing.subscribe(ongoing => {
+      this.ongoingSnoozeIncident = ongoing.isOngoing ? ongoing.incident : null;
+    });
   }
 
   undoSnooze() {
-    // TODO implement this
+    this.snoozeStore.undoSnooze();
   }
 
   close() {
-    // TODO implement this
+    this.snoozeStore.confirmSnooze();
   }
 }
