@@ -1,12 +1,13 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {remove} from 'lodash'
-import 'rxjs/add/operator/mergeMap'
+import {remove} from 'lodash';
+import 'rxjs/add/operator/mergeMap';
 
 import {Incident} from '../components/incidents/incident';
 import {IncidentsBackendService} from '../backend/incidents-backend.service';
 import FoldersStore from './folders.store';
-import EventBus from '../utils/event-bus';
+import EventBus from '../events/event-bus';
+import Events from '../events/events';
 
 @Injectable()
 export default class IncidentsStore {
@@ -18,14 +19,24 @@ export default class IncidentsStore {
     this.incidents$ = new BehaviorSubject([]);
     this._incidents = [];
 
-    this.foldersStore.currentFolderId.subscribe(currentFolderId => {
-      this.currentFolderId = currentFolderId;
-      this.getIncidents();
-    });
+    this.folderChanged = this.folderChanged.bind(this);
+
+    this.subscribeToStates();
+    this.subscribeToEvents();
+  }
+
+  subscribeToStates() {
+    this.foldersStore.currentFolderId.subscribe(this.folderChanged);
+  }
+
+  subscribeToEvents() {
+    this.bus.events
+      .filter(event => event.type === Events.INCIDENT_SNOOZED)
+      .subscribe(event => this.incidentSnoozed(event.incidentId));
 
     this.bus.events
-      .filter(event => event.type === 'INCIDENT_SNOOZED')
-      .subscribe(event => this.incidentSnoozed(event.incidentId));
+      .filter(event => event.type === Events.INCIDENT_UNSNOOZED)
+      .subscribe(event => this.incidentUnsnoozed(event.incidentId));
   }
 
   getIncidents(): void {
@@ -39,6 +50,16 @@ export default class IncidentsStore {
   incidentSnoozed(incidentId: string) {
     remove(this._incidents, incident => incident.id === incidentId);
     this.incidents$.next(this._incidents);
+  }
+
+  incidentUnsnoozed(incidentId: string) {
+    remove(this._incidents, incident => incident.id === incidentId);
+    this.incidents$.next(this._incidents);
+  }
+
+  folderChanged(folderId: string) {
+    this.currentFolderId = folderId;
+    this.getIncidents();
   }
 
   get incidents() {

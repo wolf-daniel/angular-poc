@@ -6,7 +6,7 @@ import {HttpModule} from '@angular/http';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {IncidentsModule} from './components/incidents/incidents.module';
-import EventBus from './utils/event-bus';
+import EventBus from './events/event-bus';
 
 @NgModule({
   imports: [

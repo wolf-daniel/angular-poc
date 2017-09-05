@@ -13,7 +13,7 @@ var http_1 = require("@angular/http");
 var app_routing_module_1 = require("./app-routing.module");
 var app_component_1 = require("./app.component");
 var incidents_module_1 = require("./components/incidents/incidents.module");
-var event_bus_1 = require("./utils/event-bus");
+var event_bus_1 = require("./events/event-bus");
 var AppModule = (function () {
     function AppModule() {
     }

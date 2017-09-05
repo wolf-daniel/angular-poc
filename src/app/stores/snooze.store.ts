@@ -5,7 +5,8 @@ import {remove} from 'lodash'
 
 import IncidentsStore from './incidents.store';
 import {SnoozeBackendService} from '../backend/snooze-backend.service';
-import EventBus from '../utils/event-bus';
+import EventBus from '../events/event-bus';
+import Events from '../events/events';
 
 @Injectable()
 export default class SnoozeStore {
@@ -37,9 +38,8 @@ export default class SnoozeStore {
         this._snoozedIncidentIds.push(incidentId);
         this.snoozedIncidentsIds$.next(this._snoozedIncidentIds)
 
-        console.log('going to send on bus');
         this.bus.events.next({
-          type: 'INCIDENT_SNOOZED',
+          type: Events.INCIDENT_SNOOZED,
           incidentId
         });
       }
@@ -51,6 +51,11 @@ export default class SnoozeStore {
       if (this._snoozedIncidentIds.includes(incidentId)) {
         remove(this._snoozedIncidentIds, id => id === incidentId);
         this.snoozedIncidentsIds$.next(this._snoozedIncidentIds)
+
+        this.bus.events.next({
+          type: Events.INCIDENT_UNSNOOZED,
+          incidentId
+        });
       }
     });
   }
