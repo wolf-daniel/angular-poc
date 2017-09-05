@@ -75,9 +75,11 @@ export default class SnoozeStore {
         remove(this._snoozedIncidentIds, id => id === incident.id);
         this.snoozedIncidentsIds$.next(this._snoozedIncidentIds);
 
+        incident.folderId = null;
+
         this.bus.events.next({
-          type: Events.INCIDENT_UNSNOOZED,
-          incidentId: incident.id
+          type: Events.INCIDENT_CHANGED,
+          incident
         });
       }
     });
@@ -109,9 +111,11 @@ export default class SnoozeStore {
 
     this.ongoing$.next(this._ongoing);
 
+    incident.folderId = 'snoozed';
+
     this.bus.events.next({
-      type: Events.INCIDENT_SNOOZED,
-      incidentId: incident.id
+      type: Events.INCIDENT_CHANGED,
+      incident
     });
   }
 

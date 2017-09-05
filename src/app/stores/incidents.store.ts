@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {remove, merge} from 'lodash';
+import {clone, remove, merge} from 'lodash';
 import 'rxjs/add/operator/mergeMap';
 
 import {Incident} from '../components/incidents/incident';
@@ -39,14 +39,6 @@ export default class IncidentsStore {
     this.bus.events
       .filter(event => event.type === Events.INCIDENT_CHANGED)
       .subscribe(event => this.incidentChanged(event.incident));
-
-    this.bus.events
-      .filter(event => event.type === Events.INCIDENT_SNOOZED)
-      .subscribe(event => this.incidentSnoozed(event.incidentId));
-
-    this.bus.events
-      .filter(event => event.type === Events.INCIDENT_UNSNOOZED)
-      .subscribe(event => this.incidentUnsnoozed(event.incidentId));
   }
 
   getIncidents(): void {
@@ -61,26 +53,35 @@ export default class IncidentsStore {
   }
 
   incidentChanged(incomingIncident: Incident) {
-    if (incomingIncident.folderId !== this._currentFolderId) {
-      return
-    }
-
     const existingIncident = this._incidents.find(incident => incident.id === incomingIncident.id);
+
     if (!existingIncident) {
-      this._incidents.push(incomingIncident);
+      this.incidentAdded(incomingIncident);
     } else {
-      merge(existingIncident, incomingIncident);
+      if (incomingIncident.folderId !== this._currentFolderId) {
+        this.incidentChangedFolder(incomingIncident);
+      } else {
+        this.incidentUpdated(incomingIncident, existingIncident);
+      }
+    }
+
+    this.incidents$.next(clone(this._incidents));
+  }
+
+  protected incidentAdded(incomingIncident: Incident) {
+    if (incomingIncident.folderId === this._currentFolderId) {
+      this._incidents.push(incomingIncident);
     }
   }
 
-  incidentSnoozed(incidentId: string) {
-    remove(this._incidents, incident => incident.id === incidentId);
-    this.incidents$.next(this._incidents);
+  protected incidentChangedFolder(incomingIncident: Incident) {
+    if (incomingIncident.folderId !== this._currentFolderId) {
+      remove(this._incidents, incident => incident.id === incomingIncident.id)
+    }
   }
 
-  incidentUnsnoozed(incidentId: string) {
-    remove(this._incidents, incident => incident.id === incidentId);
-    this.incidents$.next(this._incidents);
+  protected incidentUpdated(incomingIncident: Incident, existingIncident: Incident) {
+    merge(existingIncident, incomingIncident);
   }
 
   folderChanged(folderId: string) {
@@ -104,7 +105,6 @@ export default class IncidentsStore {
 
         this.incidents$.next(this._incidents);
       })
-
   }
 
   get incidents() {
