@@ -8,7 +8,6 @@ import {IncidentsBackendService} from '../backend/incidents-backend.service';
 import FoldersStore from './folders.store';
 import EventBus from '../events/event-bus';
 import Events from '../events/events';
-import AppConstants from '../constants';
 
 @Injectable()
 export default class IncidentsStore {
@@ -16,12 +15,9 @@ export default class IncidentsStore {
 
   private _incidents: Incident[];
   private _currentFolderId: string;
-  private _currentPage: number;
 
   constructor(private incidentsBackendService: IncidentsBackendService, private foldersStore: FoldersStore, private bus: EventBus) {
     this._incidents = [];
-
-    this.resetPage();
 
     this.incidents$ = new BehaviorSubject(this._incidents);
 
@@ -46,10 +42,7 @@ export default class IncidentsStore {
   }
 
   nextPage(): void {
-    if ((this._currentPage) * AppConstants.INCIDENTS_PAGE_SIZE === this._incidents.length) {
-      this._currentPage++;
-      this.fetchIncidents(true);
-    }
+    this.fetchIncidents(this._incidents.length);
   }
 
   incidentChanged(incomingIncident: Incident) {
@@ -86,21 +79,16 @@ export default class IncidentsStore {
 
   folderChanged(folderId: string) {
     this._currentFolderId = folderId;
-    this.resetPage();
     this.getIncidents();
   }
 
-  resetPage() {
-    this._currentPage = 1;
-  }
-
-  protected fetchIncidents(add = false) {
-    this.incidentsBackendService.getIncidents(this._currentFolderId, this._currentPage)
+  protected fetchIncidents(fromIndex: number = 0) {
+    this.incidentsBackendService.getIncidents(this._currentFolderId, fromIndex)
       .subscribe(incidents => {
-        if (add) {
-          this._incidents.push(...incidents);
-        } else {
+        if (fromIndex < this._incidents.length) {
           this._incidents = incidents;
+        } else {
+          this._incidents.push(...incidents);
         }
 
         this.incidents$.next(this._incidents);
