@@ -29,7 +29,8 @@
       '@ngrx/store': 'npm:@ngrx/store/bundles/store.umd.js',
       '@ngrx/effects': 'npm:@ngrx/effects/bundles/effects.umd.js',
 
-      'lodash': 'npm:lodash/lodash.js'
+      'lodash': 'npm:lodash/lodash.js',
+      'class-autobind': 'npm:class-autobind/lib/autobind.js'
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
