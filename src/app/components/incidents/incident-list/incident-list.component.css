@@ -7,3 +7,7 @@
 virtual-scroll {
   height: calc(100% - 150px);
 }
+
+.incidents-count {
+  margin-bottom: 15px;
+}

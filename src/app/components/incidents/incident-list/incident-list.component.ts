@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Incident} from '../incident';
-import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/combineLatest';
 
 import IncidentsStore from '../../../stores/incidents.store';
+import {ChangeEvent} from 'angular2-virtual-scroll';
 
 @Component({
   selector: 'incident-list',
@@ -11,13 +11,22 @@ import IncidentsStore from '../../../stores/incidents.store';
   styleUrls: ['./incident-list.component.css']
 })
 export class IncidentList implements OnInit {
-  incidents$: Observable<Incident[]>;
+  incidents: Incident[] = [];
 
-  constructor(private incidentsStore: IncidentsStore) {
-    this.incidents$ = incidentsStore.incidents;
-  }
+  constructor(private incidentsStore: IncidentsStore) {}
 
   ngOnInit(): void {
+    this.incidentsStore.incidents.subscribe(incidents => {
+      this.incidents = incidents;
+    });
+
     this.incidentsStore.getIncidents();
+  }
+
+  nextPage(event: ChangeEvent): void {
+    if (event.end !== this.incidents.length)
+      return;
+
+    this.incidentsStore.nextPage();
   }
 }

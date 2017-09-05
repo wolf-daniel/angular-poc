@@ -12,15 +12,9 @@ export class IncidentsBackendService {
 
   constructor(private http: Http) {}
 
-  getIncidents(): Observable<Incident[]> {
+  getIncidents(folderId: string, page: number): Observable<Incident[]> {
     return this.http
-      .get(`${this.baseUrl}`)
-      .map(response => response.json().data);
-  }
-
-  getIncidentsByFolderId(folderId: string): Observable<Incident[]> {
-    return this.http
-      .get(`${this.baseUrl}?folderId=${folderId}`)
+      .get(`${this.baseUrl}?folderId=${folderId}&page=${page}`)
       .map(response => response.json());
   }
 }

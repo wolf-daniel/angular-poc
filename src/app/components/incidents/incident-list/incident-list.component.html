@@ -1,7 +1,11 @@
 <div class="incident-list">
+  <div class="incidents-count">
+    Showing {{incidents.length}} incidents.
+  </div>
   <virtual-scroll #scroll
-                  [items]="incidents$ | async"
-                  [childHeight]="45">
+                  [items]="incidents"
+                  [childHeight]="45"
+                  (end)="nextPage($event)">
     <incident-row *ngFor="let incident of scroll.viewPortItems" [incident]="incident"></incident-row>
   </virtual-scroll>
 </div>

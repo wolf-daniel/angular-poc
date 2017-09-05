@@ -15,10 +15,19 @@ var incidents_store_1 = require("../../../stores/incidents.store");
 var IncidentList = (function () {
     function IncidentList(incidentsStore) {
         this.incidentsStore = incidentsStore;
-        this.incidents$ = incidentsStore.incidents;
+        this.incidents = [];
     }
     IncidentList.prototype.ngOnInit = function () {
+        var _this = this;
+        this.incidentsStore.incidents.subscribe(function (incidents) {
+            _this.incidents = incidents;
+        });
         this.incidentsStore.getIncidents();
+    };
+    IncidentList.prototype.nextPage = function (event) {
+        if (event.end !== this.incidents.length)
+            return;
+        this.incidentsStore.nextPage();
     };
     return IncidentList;
 }());
