@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import SelectionsStore from '../../../stores/selections.store';
+import {BaseSelectionsStore} from '../../../stores/base-selections.store';
 
 @Component({
   selector: 'incident-checked',
@@ -10,7 +10,7 @@ export class IncidentChecked implements OnInit {
   @Input() incidentId: string;
   private isChecked: boolean;
 
-  constructor(private selectionsStore: SelectionsStore) {}
+  constructor(private selectionsStore: BaseSelectionsStore) {}
 
   ngOnInit(): void {
     this.selectionsStore.selectedIds.subscribe(selectedIds => {
@@ -18,11 +18,19 @@ export class IncidentChecked implements OnInit {
     });
   }
 
-  toggle() {
+  toggle(event: MouseEvent) {
     if (this.isChecked) {
-      this.selectionsStore.unselect(this.incidentId);
+      if (event.shiftKey) {
+        this.selectionsStore.multiDeselect(this.incidentId);
+      } else {
+        this.selectionsStore.deselect(this.incidentId);
+      }
     } else {
-      this.selectionsStore.select(this.incidentId);
+      if (event.shiftKey) {
+        this.selectionsStore.multiSelect(this.incidentId);
+      } else {
+        this.selectionsStore.select(this.incidentId);
+      }
     }
   }
 }

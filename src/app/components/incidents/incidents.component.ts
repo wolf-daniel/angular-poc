@@ -1,13 +1,14 @@
 import {Component} from '@angular/core';
 
-import SelectionsStore from '../../stores/selections.store';
+import {BaseSelectionsStore} from '../../stores/base-selections.store';
+import IncidentsSelectionsStore from '../../stores/incidents-selections.store';
 
 @Component({
   selector: 'incidents',
   templateUrl: './incidents.component.html',
   styleUrls: ['./incidents.component.css'],
   providers: [
-    SelectionsStore
+    {provide: BaseSelectionsStore, useClass: IncidentsSelectionsStore}
   ]
 })
 export class Incidents {}
