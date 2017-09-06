@@ -30,7 +30,7 @@ export default class SelectionsStore {
 
   unselect(id: string) {
     if (this._selectedIds.includes(id)) {
-      remove(this._selectedIds, id => id === id);
+      remove(this._selectedIds, currentId => currentId === id);
       this.selectedIds$.next(this._selectedIds);
     }
   }
