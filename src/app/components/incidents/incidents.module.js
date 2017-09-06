@@ -59,6 +59,10 @@ IncidentsModule = __decorate([
                 useFactory: function (socketUtil) { return function () { return socketUtil.connect(); }; },
                 deps: [socket_util_service_1.default],
                 multi: true
+            },
+            {
+                provide: Window,
+                useValue: window
             }
         ]
     })

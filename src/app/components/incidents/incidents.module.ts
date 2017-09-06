@@ -47,6 +47,10 @@ import SocketUtil from '../../utils/socket-util.service';
       useFactory: (socketUtil: SocketUtil) => () => socketUtil.connect(),
       deps: [SocketUtil],
       multi: true
+    },
+    {
+      provide: Window,
+      useValue: window
     }
   ]
 })

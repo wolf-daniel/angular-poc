@@ -1,9 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Incident} from '../incident';
 import 'rxjs/add/operator/combineLatest';
+import {VirtualScrollComponent} from 'angular2-virtual-scroll';
 
 import IncidentsStore from '../../../stores/incidents.store';
 import {ChangeEvent} from 'angular2-virtual-scroll';
+import FoldersStore from '../../../stores/folders.store';
 
 @Component({
   selector: 'incident-list',
@@ -13,11 +15,18 @@ import {ChangeEvent} from 'angular2-virtual-scroll';
 export class IncidentList implements OnInit {
   incidents: Incident[] = [];
 
-  constructor(private incidentsStore: IncidentsStore) {}
+  @ViewChild(VirtualScrollComponent)
+  private virtualScroll: VirtualScrollComponent;
+
+  constructor(private incidentsStore: IncidentsStore, private foldersStore: FoldersStore, private window: Window) {}
 
   ngOnInit(): void {
     this.incidentsStore.incidents.subscribe(incidents => {
       this.incidents = incidents;
+    });
+
+    this.foldersStore.currentFolderId.subscribe(() => {
+      this.virtualScroll.scrollInto(this.incidents[0]);
     });
 
     this.incidentsStore.getIncidents();
