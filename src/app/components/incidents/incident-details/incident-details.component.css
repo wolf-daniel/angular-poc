@@ -1,0 +1,60 @@
+.incident-details {
+  width: 400px;
+  height: 100%;
+}
+
+.field {
+  display: inline-block;
+}
+
+.source-system label {
+  margin-right: 8px;
+  color: lightgrey;
+}
+
+.source-system span {
+  color: black;
+}
+
+.status {
+  width: 100px;
+}
+
+.status.critical {
+  color: red;
+}
+
+.status.warning {
+  color: orange;
+}
+
+.status.resolved {
+  color: green;
+}
+
+.incident-metadata {
+  height: 50px;
+}
+
+.incident-entities {
+  margin-top: 30px;
+  height: calc(100% - 110px);
+}
+
+.incident-entities h3 {
+  margin-bottom: 20px;
+}
+
+.incident-entities-list {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.entity {
+  height: 45px;
+  width: 100%;
+}
+
+.entity .entity-host {
+  width: 150px;
+}

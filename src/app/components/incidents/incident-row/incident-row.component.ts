@@ -1,5 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {Incident} from '../incident';
+import IncidentsStore from '../../../stores/incidents.store';
 
 @Component({
   selector: 'incident-row',
@@ -8,4 +9,10 @@ import {Incident} from '../incident';
 })
 export class IncidentRow {
   @Input() incident: Incident;
+
+  constructor(private incidentsStore: IncidentsStore) {}
+
+  showIncident() {
+    this.incidentsStore.selectIncident(this.incident);
+  }
 }

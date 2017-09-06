@@ -1,0 +1,35 @@
+<div class="incident-details">
+  <div *ngIf="incident; else noSelectedIncident">
+    <div class="incident-metadata">
+      <h2>Incident Details</h2>
+
+      <div class="status field" [ngClass]="incident.status.toLowerCase()">
+        <span>{{incident.status}}</span>
+      </div>
+      <div class="source-system field">
+        <label>Source system:</label>
+        <span>{{incident.sourceSystem}}</span>
+      </div>
+    </div>
+    <div class="incident-entities">
+      <h3>Entities:</h3>
+      <div class="incident-entities-list">
+        <div class="entity" *ngFor="let entity of incident.entities">
+          <div class="entity-host">
+            <label>Host:</label>
+            <span>{{entity.host}}</span>
+          </div>
+          <div class="entity-check">
+            <label>Check:</label>
+            <span>{{entity.check}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template class="no-incident-placeholder" #noSelectedIncident>
+    No incident selected.
+  </ng-template>
+</div>
+

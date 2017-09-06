@@ -18,6 +18,7 @@ import {FoldersBackendService} from '../../backend/folders-backend.service';
 import FoldersStore from '../../stores/folders.store';
 import SnoozeStore from '../../stores/snooze.store';
 import SocketUtil from '../../utils/socket-util.service';
+import {IncidentDetails} from './incident-details/incident-details.component';
 
 @NgModule({
   imports: [
@@ -32,6 +33,7 @@ import SocketUtil from '../../utils/socket-util.service';
     IncidentChecked,
     IncidentSnoozeButton,
     IncidentListTopBar,
+    IncidentDetails,
     SnoozeMessage
   ],
   providers: [

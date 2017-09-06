@@ -1,11 +1,11 @@
 .incident-list {
   width: 700px;
-  height: calc(100% - 150px);
+  height: calc(100% - 110px);
   overflow-y: auto;
 }
 
 virtual-scroll {
-  height: calc(100% - 150px);
+  height: calc(100% - 110px);
 }
 
 .incidents-count {

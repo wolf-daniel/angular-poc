@@ -15,10 +15,9 @@ var angular2_virtual_scroll_1 = require("angular2-virtual-scroll");
 var incidents_store_1 = require("../../../stores/incidents.store");
 var folders_store_1 = require("../../../stores/folders.store");
 var IncidentList = (function () {
-    function IncidentList(incidentsStore, foldersStore, window) {
+    function IncidentList(incidentsStore, foldersStore) {
         this.incidentsStore = incidentsStore;
         this.foldersStore = foldersStore;
-        this.window = window;
         this.incidents = [];
     }
     IncidentList.prototype.ngOnInit = function () {
@@ -48,7 +47,7 @@ IncidentList = __decorate([
         templateUrl: './incident-list.component.html',
         styleUrls: ['./incident-list.component.css']
     }),
-    __metadata("design:paramtypes", [incidents_store_1.default, folders_store_1.default, Window])
+    __metadata("design:paramtypes", [incidents_store_1.default, folders_store_1.default])
 ], IncidentList);
 exports.IncidentList = IncidentList;
 //# sourceMappingURL=incident-list.component.js.map

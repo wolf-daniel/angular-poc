@@ -10,9 +10,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var incidents_store_1 = require("../../../stores/incidents.store");
 var IncidentRow = (function () {
-    function IncidentRow() {
+    function IncidentRow(incidentsStore) {
+        this.incidentsStore = incidentsStore;
     }
+    IncidentRow.prototype.showIncident = function () {
+        this.incidentsStore.selectIncident(this.incident);
+    };
     return IncidentRow;
 }());
 __decorate([
@@ -24,7 +29,8 @@ IncidentRow = __decorate([
         selector: 'incident-row',
         templateUrl: './incident-row.component.html',
         styleUrls: ['./incident-row.component.css']
-    })
+    }),
+    __metadata("design:paramtypes", [incidents_store_1.default])
 ], IncidentRow);
 exports.IncidentRow = IncidentRow;
 //# sourceMappingURL=incident-row.component.js.map

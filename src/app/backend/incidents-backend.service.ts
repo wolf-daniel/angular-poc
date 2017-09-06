@@ -17,4 +17,10 @@ export class IncidentsBackendService {
       .get(`${this.baseUrl}?folderId=${folderId}&fromIndex=${fromIndex}`)
       .map(response => response.json());
   }
+
+  getFullIncident(incidentId: string): Observable<Incident> {
+    return this.http
+      .get(`${this.baseUrl}/${incidentId}`)
+      .map(response => response.json());
+  }
 }

@@ -11,15 +11,19 @@ import Events from '../events/events';
 
 @Injectable()
 export default class IncidentsStore {
-  public incidents$: BehaviorSubject<Incident[]>;
+  private incidents$: BehaviorSubject<Incident[]>;
+  private displayedIncident$: BehaviorSubject<Incident>;
 
   private _incidents: Incident[];
   private _currentFolderId: string;
+  private _displayedIncident: Incident;
 
   constructor(private incidentsBackendService: IncidentsBackendService, private foldersStore: FoldersStore, private bus: EventBus) {
     this._incidents = [];
+    this._displayedIncident = null;
 
     this.incidents$ = new BehaviorSubject(this._incidents);
+    this.displayedIncident$ = new BehaviorSubject(this._displayedIncident);
 
     this.folderChanged = this.folderChanged.bind(this);
 
@@ -45,6 +49,18 @@ export default class IncidentsStore {
     this.fetchIncidents(this._incidents.length);
   }
 
+  getFullIncident(incidentId: string) {
+    this.incidentsBackendService.getFullIncident(incidentId).subscribe(incident => {
+      this._displayedIncident = incident;
+      this.displayedIncident$.next(this._displayedIncident);
+    });
+  }
+
+  selectIncident(incident: Incident) {
+    this._displayedIncident = incident;
+    this.displayedIncident$.next(this._displayedIncident);
+  }
+
   incidentChanged(incomingIncident: Incident) {
     const existingIncident = this._incidents.find(incident => incident.id === incomingIncident.id);
 
@@ -56,6 +72,12 @@ export default class IncidentsStore {
       } else {
         this.incidentUpdated(incomingIncident, existingIncident);
       }
+    }
+
+    // Make sure to also update the displayed incident.
+    if (this._displayedIncident && this._displayedIncident.id === incomingIncident.id) {
+      merge(this._displayedIncident, incomingIncident);
+      this.displayedIncident$.next(clone(this._displayedIncident));
     }
 
     this.incidents$.next(clone(this._incidents));
@@ -79,7 +101,9 @@ export default class IncidentsStore {
 
   folderChanged(folderId: string) {
     this._currentFolderId = folderId;
+    this._displayedIncident = null;
     this.getIncidents();
+    this.displayedIncident$.next(this._displayedIncident);
   }
 
   protected fetchIncidents(fromIndex: number = 0) {
@@ -97,5 +121,9 @@ export default class IncidentsStore {
 
   get incidents() {
     return this.incidents$.asObservable();
+  }
+
+  get displayedIncident() {
+    return this.displayedIncident$.asObservable();
   }
 }

@@ -1,4 +1,4 @@
-<div class="incident-row">
+<div class="incident-row" (click)="showIncident()">
   <incident-checked [incidentId]="incident.id"></incident-checked>
   <div class="status field" [ngClass]="incident.status.toLowerCase()">
     <span>{{incident.status}}</span>

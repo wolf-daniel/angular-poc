@@ -6,6 +6,7 @@ import {VirtualScrollComponent} from 'angular2-virtual-scroll';
 import IncidentsStore from '../../../stores/incidents.store';
 import {ChangeEvent} from 'angular2-virtual-scroll';
 import FoldersStore from '../../../stores/folders.store';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'incident-list',
@@ -18,7 +19,7 @@ export class IncidentList implements OnInit {
   @ViewChild(VirtualScrollComponent)
   private virtualScroll: VirtualScrollComponent;
 
-  constructor(private incidentsStore: IncidentsStore, private foldersStore: FoldersStore, private window: Window) {}
+  constructor(private incidentsStore: IncidentsStore, private foldersStore: FoldersStore) {}
 
   ngOnInit(): void {
     this.incidentsStore.incidents.subscribe(incidents => {
